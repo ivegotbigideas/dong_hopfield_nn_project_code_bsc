@@ -8,10 +8,9 @@ number_of_neurons = 2
 def sigmoid(x):
     return 1/(1+exp**(-x))
 
-
 # function_definitions
-def deriv_neuron_state_wrt_time(neuron_id, 
-                                neuron_state,
+def deriv_neuron_state_wrt_time(neuron_id, # i
+                                neuron_state, # u
                                 g_constant,
                                 A_constant,
                                 recent_correllation = [[0, 40]], # s
@@ -34,10 +33,10 @@ def deriv_neuron_state_wrt_time(neuron_id,
     derivative = 1/a_constants[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
 
-def deriv_recent_correllation_wrt_time(neuron_id_1, 
-                                        neuron_id_2, 
-                                        neuron_1_state, 
-                                        neuron_2_state,
+def deriv_recent_correllation_wrt_time(neuron_id_1, # i
+                                        neuron_id_2, # j
+                                        neuron_1_state, # u_i
+                                        neuron_2_state, # u_j
                                         recent_correllation = [[0, 0.4]], # s
                                         B_constants = [[0, 1.3]],
                                         H_constant = 0.87
@@ -68,7 +67,7 @@ ax.set_ylabel('$du_0/dt$')
 
 # create sliders
 fig.subplots_adjust(bottom=0.5)
-g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
+g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
 
 # necessary plotting functions
