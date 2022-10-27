@@ -79,16 +79,16 @@ def determine_u_plot_data(g_constant=g_constant_slider.val, A_constant=A_constan
             vector_hor_strength[i,j] = neuron_state
             vector_vert_strength[i,j] = derivative
 
-def update_plot(slider_val):
+def update_u_plot(slider_val):
     determine_u_plot_data(g_constant=g_constant_slider.val,
                         A_constant=A_constant_slider.val
     )
     Q.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
 
-# slider_updates
-g_constant_slider.on_changed(update_plot)
-A_constant_slider.on_changed(update_plot)
+# slider updates
+g_constant_slider.on_changed(update_u_plot)
+A_constant_slider.on_changed(update_u_plot)
 
 # physical plotting
 determine_u_plot_data()
