@@ -3,7 +3,7 @@ from matplotlib.widgets import Slider
 import matplotlib.pyplot as plt
 import numpy as np
 
-number_of_neurons = 2
+NUMBER_OF_NEURONS = 2
 
 def sigmoid(x):
     return 1/(1+exp**(-x))
@@ -22,7 +22,7 @@ def deriv_neuron_state_wrt_time(neuron_id, # i
     sum = 0
     connection_pointer = 0
     connection_strength=[sigmoid(item) for item in recent_correllation[0]] # T
-    while connection_pointer <= number_of_neurons-1:
+    while connection_pointer <= NUMBER_OF_NEURONS-1:
         if connection_pointer != neuron_id:
             sum += connection_strength[neuron_id] * sigmoid(neuron_state)
         connection_pointer +=1
