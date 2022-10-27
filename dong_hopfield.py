@@ -3,13 +3,14 @@ from matplotlib.widgets import Slider
 import matplotlib.pyplot as plt
 import numpy as np
 
+# important constants
 NUMBER_OF_NEURONS = 2
 PLOT_SIZE = 4
 
+# mathematical functions
 def sigmoid(x):
     return 1/(1+exp**(-x))
 
-# function_definitions
 def deriv_neuron_state_wrt_time(neuron_id, # i
                                 neuron_state, # u
                                 g_constant,
@@ -50,28 +51,8 @@ def deriv_recent_correllation_wrt_time(neuron_id_1, # i
 
     return derivative
 
-# plotting preparation
-hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
-vert_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
-HOR_pos, VERT_pos = np.meshgrid(hor_pos, vert_pos)
-vector_vert_strength, vector_hor_strength = np.zeros(HOR_pos.shape), np.zeros(VERT_pos.shape)
-VERT, HOR = HOR_pos.shape
-
-# plotting setup
-fig = plt.figure()
-ax = fig.subplots()
-ax.set_xlim([-PLOT_SIZE, PLOT_SIZE])
-ax.set_ylim([-PLOT_SIZE, PLOT_SIZE])
-ax.set_xlabel('$u_0$')
-ax.set_ylabel('$du_0/dt$')
-
-# create sliders
-fig.subplots_adjust(bottom=0.5)
-g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
-A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
-
 # necessary plotting functions
-def determine_u_plot_data(neuron_id=0, g_constant=g_constant_slider.val, A_constant=A_constant_slider.val):
+def determine_u_plot_data(g_constant, A_constant, neuron_id=0):
     for i in range(VERT):
         for j in range(HOR):
             neuron_state = HOR_pos[i,j]
@@ -86,11 +67,38 @@ def update_u_plot(slider_val):
     Q.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
 
+# plotting preparation
+hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
+vert_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
+HOR_pos, VERT_pos = np.meshgrid(hor_pos, vert_pos)
+vector_vert_strength, vector_hor_strength = np.zeros(HOR_pos.shape), np.zeros(VERT_pos.shape)
+VERT, HOR = HOR_pos.shape
+
+# plotting window setup
+fig = plt.figure()
+fig.set_figwidth(7)
+fig.set_figheight(7)
+fig.tight_layout(pad=5.0)
+fig.subplots_adjust(bottom=0.3)
+
+# subplot setup
+ax = fig.subplots(2)
+ax[0].set_xlim([-PLOT_SIZE, PLOT_SIZE])
+ax[0].set_ylim([-PLOT_SIZE, PLOT_SIZE])
+ax[0].set_xlabel('$u_i$')
+ax[0].set_ylabel('$du_i/dt$')
+
+# create sliders
+g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
+A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
+
 # slider updates
 g_constant_slider.on_changed(update_u_plot)
 A_constant_slider.on_changed(update_u_plot)
 
-# physical plotting
-determine_u_plot_data(neuron_id=0)
-Q = ax.quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
+# gather data
+determine_u_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_slider.val, neuron_id=0)
+
+# create plot
+Q = ax[0].quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
 plt.show()
