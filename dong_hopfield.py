@@ -11,13 +11,13 @@ NEURON_2_ID = 1
 
 # important variables
 a_constants = [0.24, 0.63]
+g_constant = 0
 
 # mathematical functions
 def sigmoid(x):
     return 1/(1+exp**(-x))
 
 def deriv_neuron_state_wrt_time(neuron_state, # u
-                                g_constant,
                                 A_constant,
                                 recent_correllation = [[0, 40]], # s
                                 external_stimulus = [10, 1.23], # I,
@@ -54,11 +54,11 @@ def deriv_recent_correllation_wrt_time(
     return derivative
 
 # necessary plotting functions
-def determine_u_plot_data(g_constant, A_constant):
+def determine_u_plot_data(A_constant):
     for i in range(VERT):
         for j in range(HOR):
             neuron_state = HOR_pos[i,j]
-            derivative = deriv_neuron_state_wrt_time(neuron_state=neuron_state, g_constant=g_constant, A_constant=A_constant)
+            derivative = deriv_neuron_state_wrt_time(neuron_state=neuron_state, A_constant=A_constant)
             vector_hor_strength[i,j] = neuron_state
             vector_vert_strength[i,j] = derivative
 
@@ -71,9 +71,9 @@ def determine_s_plot_data(
     pass
 
 def update_u_plot(*args):
-    determine_u_plot_data(g_constant=g_constant_slider.val,
-                            A_constant=A_constant_slider.val
-    )
+    global g_constant
+    g_constant = g_constant_slider.val
+    determine_u_plot_data(A_constant=A_constant_slider.val)
     Q.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
 
@@ -108,9 +108,9 @@ ax[1].set_xlabel('$u_i$')
 ax[1].set_ylabel('$du_i/dt$')
 
 # create sliders
-g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
+g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=g_constant, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
-a_constant_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), 'a constant slider', valmin=0.1, valmax=0.5, valinit=0.1, valstep=0.01)
+a_constant_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), 'a constant slider', valmin=0.1, valmax=0.5, valinit=a_constants[NEURON_1_ID], valstep=0.01)
 
 # slider updates
 g_constant_slider.on_changed(update_u_plot)
@@ -118,7 +118,7 @@ A_constant_slider.on_changed(update_u_plot)
 a_constant_slider.on_changed(update_a_constants)
 
 # gather data
-determine_u_plot_data(g_constant=g_constant_slider.val, 
+determine_u_plot_data(
                         A_constant=A_constant_slider.val,
                     )
 
