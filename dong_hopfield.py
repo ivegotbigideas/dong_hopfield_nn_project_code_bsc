@@ -6,6 +6,7 @@ import numpy as np
 # important constants
 NUMBER_OF_NEURONS = 2
 PLOT_SIZE = 4
+NEURON_ID = 0
 
 # mathematical functions
 def sigmoid(x):
@@ -39,9 +40,9 @@ def deriv_recent_correllation_wrt_time(neuron_id_1, # i
                                         neuron_id_2, # j
                                         neuron_1_state, # u_i
                                         neuron_2_state, # u_j
-                                        recent_correllation = [[0, 0.4]], # s
-                                        B_constants = [[0, 1.3]],
-                                        H_constant = 0.87
+                                        recent_correllation, # s
+                                        B_constants,
+                                        H_constant
                                         ):
     term_1 = recent_correllation[neuron_id_1][neuron_id_2]
 
@@ -52,7 +53,7 @@ def deriv_recent_correllation_wrt_time(neuron_id_1, # i
     return derivative
 
 # necessary plotting functions
-def determine_u_plot_data(g_constant, A_constant, neuron_id=0):
+def determine_u_plot_data(g_constant, A_constant, neuron_id):
     for i in range(VERT):
         for j in range(HOR):
             neuron_state = HOR_pos[i,j]
@@ -60,9 +61,18 @@ def determine_u_plot_data(g_constant, A_constant, neuron_id=0):
             vector_hor_strength[i,j] = neuron_state
             vector_vert_strength[i,j] = derivative
 
+def determine_s_plot_data(
+                            neuron_1_state, # u_i
+                            neuron_2_state, # u_j
+                            neuron_id_1, # i
+                            neuron_id_2, # j
+                            ):
+    pass
+
 def update_u_plot(slider_val):
     determine_u_plot_data(g_constant=g_constant_slider.val,
-                        A_constant=A_constant_slider.val
+                            A_constant=A_constant_slider.val,
+                            neuron_id=NEURON_ID
     )
     Q.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
@@ -79,7 +89,7 @@ fig = plt.figure()
 fig.set_figwidth(7)
 fig.set_figheight(7)
 fig.tight_layout(pad=5.0)
-fig.subplots_adjust(bottom=0.3)
+fig.subplots_adjust(bottom=0.3, hspace=0.5)
 
 # subplot setup
 ax = fig.subplots(2)
@@ -87,6 +97,11 @@ ax[0].set_xlim([-PLOT_SIZE, PLOT_SIZE])
 ax[0].set_ylim([-PLOT_SIZE, PLOT_SIZE])
 ax[0].set_xlabel('$u_i$')
 ax[0].set_ylabel('$du_i/dt$')
+
+ax[1].set_xlim([-PLOT_SIZE, PLOT_SIZE])
+ax[1].set_ylim([-PLOT_SIZE, PLOT_SIZE])
+ax[1].set_xlabel('$u_i$')
+ax[1].set_ylabel('$du_i/dt$')
 
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
@@ -97,7 +112,9 @@ g_constant_slider.on_changed(update_u_plot)
 A_constant_slider.on_changed(update_u_plot)
 
 # gather data
-determine_u_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_slider.val, neuron_id=0)
+determine_u_plot_data(g_constant=g_constant_slider.val, 
+                        A_constant=A_constant_slider.val, 
+                        neuron_id=NEURON_ID)
 
 # create plot
 Q = ax[0].quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
