@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 NUMBER_OF_NEURONS = 2
+PLOT_SIZE = 4
 
 def sigmoid(x):
     return 1/(1+exp**(-x))
@@ -50,9 +51,8 @@ def deriv_recent_correllation_wrt_time(neuron_id_1, # i
     return derivative
 
 # plotting preparation
-plot_size = 4
-hor_pos = np.linspace(-plot_size,plot_size,20)
-vert_pos = np.linspace(-plot_size,plot_size,20)
+hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
+vert_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
 HOR_pos, VERT_pos = np.meshgrid(hor_pos, vert_pos)
 vector_vert_strength, vector_hor_strength = np.zeros(HOR_pos.shape), np.zeros(VERT_pos.shape)
 VERT, HOR = HOR_pos.shape
@@ -60,8 +60,8 @@ VERT, HOR = HOR_pos.shape
 # plotting setup
 fig = plt.figure()
 ax = fig.subplots()
-ax.set_xlim([-plot_size, plot_size])
-ax.set_ylim([-plot_size, plot_size])
+ax.set_xlim([-PLOT_SIZE, PLOT_SIZE])
+ax.set_ylim([-PLOT_SIZE, PLOT_SIZE])
 ax.set_xlabel('$u_0$')
 ax.set_ylabel('$du_0/dt$')
 
