@@ -3,16 +3,18 @@ from matplotlib.widgets import Slider
 import matplotlib.pyplot as plt
 import numpy as np
 
-# important constants
+# script constants
 NUMBER_OF_NEURONS = 2
 PLOT_SIZE = 4
 NEURON_I_ID = 0
 NEURON_J_ID = 1
 
-# important variables
+# equation constant default values
 a_constants = [0.24, 0.63]
 g_constant = 0
 A_constant = 0
+
+# network state
 recent_correllation = [[0, 0.4]] # s
 external_stimulus = [10, 1.23] # I
 
