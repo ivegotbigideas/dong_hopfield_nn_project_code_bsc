@@ -110,7 +110,7 @@ ax[1].set_ylabel('$du_i/dt$')
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=0, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
-a_constant_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), 'a constant slider', valmin=-0.5, valmax=0.5, valinit=0, valstep=0.01)
+a_constant_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), 'a constant slider', valmin=0.1, valmax=0.5, valinit=0.1, valstep=0.01)
 
 # slider updates
 g_constant_slider.on_changed(update_u_plot)
