@@ -14,15 +14,15 @@ def deriv_neuron_state_wrt_time(neuron_id,
                                 neuron_state,
                                 g_constant,
                                 A_constant,
-                                recent_correllation = [[0, 0.4]], # s_01 = s_10
-                                external_stimulus = [0.53, 1.23], # I,
+                                recent_correllation = [[0, 40]], # s
+                                external_stimulus = [10, 1.23], # I,
                                 a_constants = [0.24, 0.63],
                                 ):
     term_1 = -neuron_state
     
     sum = 0
     connection_pointer = 0
-    connection_strength=[sigmoid(item) for item in recent_correllation[0]] # T_01 = T_10
+    connection_strength=[sigmoid(item) for item in recent_correllation[0]] # T
     while connection_pointer <= number_of_neurons-1:
         if connection_pointer != neuron_id:
             sum += connection_strength[neuron_id] * sigmoid(neuron_state)
@@ -38,7 +38,7 @@ def deriv_recent_correllation_wrt_time(neuron_id_1,
                                         neuron_id_2, 
                                         neuron_1_state, 
                                         neuron_2_state,
-                                        recent_correllation = [[0, 0.4]], # s_01 = s_10
+                                        recent_correllation = [[0, 0.4]], # s
                                         B_constants = [[0, 1.3]],
                                         H_constant = 0.87
                                         ):
@@ -68,8 +68,8 @@ ax.set_ylabel('$du_0/dt$')
 
 # create sliders
 fig.subplots_adjust(bottom=0.5)
-g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=0, valmax=1.5, valinit=0.76, valstep=0.02)
-A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=0, valmax=1.5, valinit=0.76, valstep=0.02)
+g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
+A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
 
 # necessary plotting functions
 def determine_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_slider.val):
