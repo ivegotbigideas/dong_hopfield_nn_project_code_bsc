@@ -29,7 +29,6 @@ def deriv_neuron_state_wrt_time(neuron_state):
     while connection_pointer <= NUMBER_OF_NEURONS-1:
         if connection_pointer != NEURON_I_ID:
             sum += connection_strength[NEURON_J_ID] * sigmoid(neuron_state)
-            print(connection_strength)
         connection_pointer +=1
     term_2 = g_constant * sum
 
