@@ -71,7 +71,7 @@ g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider
 A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=0, valstep=0.01)
 
 # necessary plotting functions
-def determine_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_slider.val):
+def determine_u_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_slider.val):
     for i in range(VERT):
         for j in range(HOR):
             neuron_state = HOR_pos[i,j]
@@ -80,7 +80,7 @@ def determine_plot_data(g_constant=g_constant_slider.val, A_constant=A_constant_
             vector_vert_strength[i,j] = derivative
 
 def update_plot(slider_val):
-    determine_plot_data(g_constant=g_constant_slider.val,
+    determine_u_plot_data(g_constant=g_constant_slider.val,
                         A_constant=A_constant_slider.val
     )
     Q.set_UVC(vector_vert_strength, vector_hor_strength)
@@ -91,6 +91,6 @@ g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)
 
 # physical plotting
-determine_plot_data()
+determine_u_plot_data()
 Q = ax.quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
 plt.show()
