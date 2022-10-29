@@ -90,14 +90,14 @@ def update_recent_correllation(val):
     recent_correllation[NEURON_I_ID][NEURON_J_ID] = val
     update_u_plot()
 
-# plotting preparation
+# u plot preparation
 hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
 vert_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
 HOR_pos, VERT_pos = np.meshgrid(hor_pos, vert_pos)
 vector_vert_strength, vector_hor_strength = np.zeros(HOR_pos.shape), np.zeros(VERT_pos.shape)
 VERT, HOR = HOR_pos.shape
 
-# plotting window setup
+# u plot window setup
 fig = plt.figure()
 fig.set_figwidth(7)
 fig.set_figheight(7)
@@ -111,13 +111,13 @@ ax.set_ylim([-PLOT_SIZE, PLOT_SIZE])
 ax.set_xlabel(f'$u_{NEURON_I_ID}$')
 ax.set_ylabel(f'$du_{NEURON_I_ID}/dt$')
 
-# create sliders
+# create u plot sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=g_constant, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=A_constant, valstep=0.01)
 a_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'a_{NEURON_I_ID} constant slider', valmin=0.1, valmax=0.5, valinit=a_constants[NEURON_I_ID], valstep=0.01)
 s_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f's_{NEURON_I_ID}{NEURON_J_ID} slider', valmin=0, valmax=5, valinit=recent_correllation[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
 
-# slider updates
+# u plot slider updates
 g_constant_slider.on_changed(update_u_plot)
 A_constant_slider.on_changed(update_u_plot)
 a_constant_slider.on_changed(update_a_constants)
