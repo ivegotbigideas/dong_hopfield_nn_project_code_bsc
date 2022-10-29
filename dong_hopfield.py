@@ -134,4 +134,6 @@ determine_u_plot_data()
 
 # create u plot
 Q1 = ax.quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
+
+# show plots
 plt.show()
