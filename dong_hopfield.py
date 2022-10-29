@@ -17,6 +17,7 @@ A_constant = 0
 # network state
 recent_correllation = [[0, 0.4]] # s
 external_stimulus = [10, 1.23] # I
+neuron_states = [2.5, 3.7]
 
 # mathematical functions
 def sigmoid(x):
@@ -40,17 +41,17 @@ def deriv_neuron_state_wrt_time(neuron_state):
     return derivative
 
 def deriv_recent_correllation_wrt_time(
-                                        neuron_1_state, # u_i
-                                        neuron_2_state, # u_j
-                                        recent_correllation, # s
+                                        neuron_i_state, # u_i
+                                        neuron_j_state, # u_j
+                                        recent_correllation, # s_ij
                                         B_constants,
                                         H_constant
                                     ):
     term_1 = recent_correllation[NEURON_I_ID][NEURON_J_ID]
 
-    term_2 = H_constant*sigmoid(neuron_1_state)*sigmoid(neuron_2_state)
+    term_2 = H_constant*sigmoid(neuron_i_state)*sigmoid(neuron_j_state)
 
-    derivative = 1/B_constants[0][1](term_1 + term_2)
+    derivative = (1/B_constants[NEURON_I_ID][NEURON_J_ID])*(term_1 + term_2)
 
     return derivative
 
@@ -69,7 +70,12 @@ def determine_s_plot_data(
                             neuron_id_1, # i
                             neuron_id_2, # j
                         ):
-    pass
+    for i in range(VERT):
+        for j in range(HOR):
+            neuron_state = HOR_pos[i,j]
+            derivative = deriv_recent_correllation_wrt_time()
+            vector_hor_strength[i,j] = neuron_state
+            vector_vert_strength[i,j] = derivative
 
 def update_u_plot(*args):
     global g_constant
