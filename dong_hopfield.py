@@ -111,16 +111,11 @@ ax.set_ylim([-PLOT_SIZE, PLOT_SIZE])
 ax.set_xlabel(f'$u_{NEURON_I_ID}$')
 ax.set_ylabel(f'$du_{NEURON_I_ID}/dt$')
 
-#ax[1].set_xlim([-PLOT_SIZE, PLOT_SIZE])
-#ax[1].set_ylim([-PLOT_SIZE, PLOT_SIZE])
-#ax[1].set_xlabel('$u_i$')
-#ax[1].set_ylabel('$du_i/dt$')
-
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=g_constant, valstep=0.01)
-A_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=A_constant, valstep=0.01)
-a_constant_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'a_{NEURON_I_ID} constant slider', valmin=0.1, valmax=0.5, valinit=a_constants[NEURON_I_ID], valstep=0.01)
-s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), f's_{NEURON_I_ID}{NEURON_J_ID} slider', valmin=0, valmax=5, valinit=recent_correllation[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
+A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=A_constant, valstep=0.01)
+a_constant_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'a_{NEURON_I_ID} constant slider', valmin=0.1, valmax=0.5, valinit=a_constants[NEURON_I_ID], valstep=0.01)
+s_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f's_{NEURON_I_ID}{NEURON_J_ID} slider', valmin=0, valmax=5, valinit=recent_correllation[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
 
 # slider updates
 g_constant_slider.on_changed(update_u_plot)
