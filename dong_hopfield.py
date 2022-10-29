@@ -79,6 +79,14 @@ def update_u_plot(*args):
     Q1.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
 
+def update_s_plot(*args):
+    global H_constant
+    H_constant = H_constant_slider.val
+
+    determine_s_plot_data()
+    Q2.set_UVC(vector_vert_strength, vector_hor_strength)
+    fig2.canvas.draw()
+
 def update_a_constants(val):
     a_constants[NEURON_I_ID] = val
     update_u_plot()
@@ -86,6 +94,18 @@ def update_a_constants(val):
 def update_recent_correllation(val):
     recent_correllation[NEURON_I_ID][NEURON_J_ID] = val
     update_u_plot()
+
+def update_B_constants(val):
+    B_constants[NEURON_I_ID][NEURON_J_ID] = val
+    update_s_plot()
+
+def update_ui_values(val):
+    neuron_states[NEURON_I_ID] = val
+    update_s_plot()
+
+def update_uj_values(val):
+    neuron_states[NEURON_J_ID] = val
+    update_s_plot()
 
 # plot preparation
 hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
@@ -142,11 +162,16 @@ ax2.set_ylabel(f'$ds{NEURON_I_ID}{NEURON_J_ID}/dt$')
 
 # create u plot sliders
 H_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'H constant slider', valmin=-15, valmax=15, valinit=H_constant, valstep=0.01)
-B_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), f'B{NEURON_I_ID}{NEURON_J_ID} slider', valmin=0, valmax=5, valinit=B_constants[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
+B_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), f'B{NEURON_I_ID}{NEURON_J_ID} slider', valmin=-1, valmax=1, valinit=B_constants[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
+u_i_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'u_{NEURON_I_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_I_ID], valstep=0.01)
+u_j_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'u_{NEURON_J_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_J_ID], valstep=0.01)
+
 
 # u plot slider updates
 H_constant_slider.on_changed(update_s_plot)
 B_constant_slider.on_changed(update_B_constants)
+u_i_slider.on_changed(update_ui_values)
+u_j_slider.on_changed(update_uj_values)
 
 # gather s plot data
 determine_s_plot_data()
