@@ -123,9 +123,9 @@ A_constant_slider.on_changed(update_u_plot)
 a_constant_slider.on_changed(update_a_constants)
 s_slider.on_changed(update_recent_correllation)
 
-# gather data
+# gather u plot data
 determine_u_plot_data()
 
-# create plot
-Q = ax.quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
+# create u plot
+Q1 = ax.quiver(HOR_pos, VERT_pos, vector_vert_strength, vector_hor_strength)
 plt.show()
