@@ -79,7 +79,7 @@ def update_u_plot(*args):
     A_constant = A_constant_slider.val
 
     determine_u_plot_data()
-    Q.set_UVC(vector_vert_strength, vector_hor_strength)
+    Q1.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
 
 def update_a_constants(val):
