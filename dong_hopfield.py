@@ -78,6 +78,9 @@ def update_u_plot(*args):
     global external_stimulus
     external_stimulus[NEURON_I_ID] = I_slider.val
 
+    global a_constants
+    a_constants[NEURON_I_ID] = a_constants_slider.val
+
     determine_u_plot_data()
     Q1.set_UVC(vector_vert_strength, vector_hor_strength)
     fig.canvas.draw()
@@ -89,10 +92,6 @@ def update_s_plot(*args):
     determine_s_plot_data()
     Q2.set_UVC(vector_vert_strength, vector_hor_strength)
     fig2.canvas.draw()
-
-def update_a_constants(val):
-    a_constants[NEURON_I_ID] = val
-    update_u_plot()
 
 def update_recent_correllation(val):
     recent_correllation[NEURON_I_ID][NEURON_J_ID] = val
@@ -141,7 +140,7 @@ I_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), 'I constant slider', valmin
 # u plot slider updates
 g_constant_slider.on_changed(update_u_plot)
 A_constant_slider.on_changed(update_u_plot)
-a_constants_slider.on_changed(update_a_constants)
+a_constants_slider.on_changed(update_u_plot)
 s_slider.on_changed(update_recent_correllation)
 I_slider.on_changed(update_u_plot)
 
@@ -171,7 +170,7 @@ B_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), f'B_{NEURON_I_ID}
 u_i_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'u_{NEURON_I_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_I_ID], valstep=0.01)
 u_j_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'u_{NEURON_J_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_J_ID], valstep=0.01)
 
-# u plot slider updates
+# s plot slider updates
 H_constant_slider.on_changed(update_s_plot)
 B_constant_slider.on_changed(update_B_constants)
 u_i_slider.on_changed(update_ui_values)
