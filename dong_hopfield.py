@@ -92,13 +92,12 @@ def update_s_plot(*args):
     global H_constant
     H_constant = H_constant_slider.val
 
+    global B_constants
+    B_constants[NEURON_I_ID][NEURON_J_ID] = B_constant_slider.val
+
     determine_s_plot_data()
     Q2.set_UVC(vector_vert_strength, vector_hor_strength)
     fig2.canvas.draw()
-
-def update_B_constants(val):
-    B_constants[NEURON_I_ID][NEURON_J_ID] = val
-    update_s_plot()
 
 def update_ui_values(val):
     neuron_states[NEURON_I_ID] = val
