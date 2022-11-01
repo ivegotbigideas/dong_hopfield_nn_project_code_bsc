@@ -95,17 +95,13 @@ def update_s_plot(*args):
     global B_constants
     B_constants[NEURON_I_ID][NEURON_J_ID] = B_constant_slider.val
 
+    global neuron_states
+    neuron_states[NEURON_I_ID] = u_i_slider.val
+    neuron_states[NEURON_J_ID] = u_j_slider.val
+
     determine_s_plot_data()
     Q2.set_UVC(vector_vert_strength, vector_hor_strength)
     fig2.canvas.draw()
-
-def update_ui_values(val):
-    neuron_states[NEURON_I_ID] = val
-    update_s_plot()
-
-def update_uj_values(val):
-    neuron_states[NEURON_J_ID] = val
-    update_s_plot()
 
 # plot preparation
 hor_pos = np.linspace(-PLOT_SIZE,PLOT_SIZE,20)
@@ -170,9 +166,9 @@ u_j_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'u_{NEURON_J_ID} consta
 
 # s plot slider updates
 H_constant_slider.on_changed(update_s_plot)
-B_constant_slider.on_changed(update_B_constants)
-u_i_slider.on_changed(update_ui_values)
-u_j_slider.on_changed(update_uj_values)
+B_constant_slider.on_changed(update_s_plot)
+u_i_slider.on_changed(update_s_plot)
+u_j_slider.on_changed(update_s_plot)
 
 # gather s plot data
 determine_s_plot_data()
