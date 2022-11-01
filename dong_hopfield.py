@@ -5,7 +5,7 @@ import numpy as np
 
 # script constants
 NUMBER_OF_NEURONS = 2
-PLOT_SIZE = 4
+PLOT_SIZE = 40
 NEURON_I_ID = 0
 NEURON_J_ID = 1
 
@@ -162,7 +162,7 @@ ax2.set_ylabel(f'$ds{NEURON_I_ID}{NEURON_J_ID}/dt$')
 
 # create u plot sliders
 H_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'H constant slider', valmin=-15, valmax=15, valinit=H_constant, valstep=0.01)
-B_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), f'B{NEURON_I_ID}{NEURON_J_ID} slider', valmin=-1, valmax=1, valinit=B_constants[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
+B_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), f'B_{NEURON_I_ID}{NEURON_J_ID} slider', valmin=-1, valmax=1, valinit=B_constants[NEURON_I_ID][NEURON_J_ID], valstep=0.05)
 u_i_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'u_{NEURON_I_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_I_ID], valstep=0.01)
 u_j_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'u_{NEURON_J_ID} constant slider', valmin=-3, valmax=3, valinit=neuron_states[NEURON_J_ID], valstep=0.01)
 
