@@ -5,7 +5,7 @@ import numpy as np
 
 # script constants
 NUMBER_OF_NEURONS = 2
-PLOT_SIZE = 40
+PLOT_SIZE = 4
 NEURON_I_ID = 0
 NEURON_J_ID = 1
 
