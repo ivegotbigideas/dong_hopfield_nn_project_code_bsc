@@ -55,8 +55,8 @@ def system(u, s):
 # find fixed points
 def find_fixed_points(rng):
     fixed_points = []
-    for u in range(rng):
-        for s in range(rng):
+    for u in range(-rng, rng):
+        for s in range(-rng, rng):
             if ((dudt(u, s) == 0) and (dsdt(u, s) == 0)):
                 fixed_points.append((u,s))
     return fixed_points
