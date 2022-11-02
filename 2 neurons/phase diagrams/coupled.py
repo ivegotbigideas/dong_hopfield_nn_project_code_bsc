@@ -26,13 +26,8 @@ def sigmoid(x):
 def dudt(u, s):
     term_1 = -u
 
-    sum = 0
-    connection_pointer = 0
     connection_strength=sigmoid(s) # T
-    while connection_pointer < NUMBER_OF_NEURONS:
-        if connection_pointer != i:
-            sum += connection_strength * sigmoid(u)
-        connection_pointer +=1
+    sum = connection_strength * sigmoid(u)
     term_2 = g*sum
 
     term_3 = A * I[i]
