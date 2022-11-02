@@ -1,6 +1,7 @@
 from math import e as exp
 from matplotlib.widgets import Slider
 from scipy import integrate
+from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -11,7 +12,7 @@ j = 1
 
 # network state
 I = [0, 0]
-s = np.array([ [0, 0.5], [0.5, 0] ])
+s = np.array([ [0, 1], [1, 0] ])
 
 # equation constants
 g = 5
@@ -23,9 +24,7 @@ Z = 10
 
 # mathematical functions
 def sigmoid(x):
-    value = 1/(1+exp**(-x))
-    value = value - 0.5
-    value = value*2
+    value = 2/pi*np.arctan(1.4*pi*x/2)
     return value
 
 def dudt(neuron_id, number_of_neurons, u, I, s, g, a):
