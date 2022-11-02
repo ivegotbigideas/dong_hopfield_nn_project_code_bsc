@@ -7,8 +7,6 @@ import numpy as np
 
 # script constants
 NUMBER_OF_NEURONS = 2
-i = 0
-j = 1
 
 # network state
 I = [0, 0]
@@ -54,17 +52,16 @@ def update_plot(*args):
     A = A_constant_slider.val
 
     global a
-    a[i] = a0_constants_slider.val
-    a[j] = a1_constants_slider.val
+    a[0] = a0_constants_slider.val
+    a[1] = a1_constants_slider.val
 
     global I
-    I[i] = I0_slider.val
-    I[j] = I0_slider.val
+    I[0] = I0_slider.val
+    I[1] = I0_slider.val
 
     global s
-    s[i][j] = s_slider.val
-    s[j][i] = s_slider.val
-
+    s[0][1] = s_slider.val
+    s[1][0] = s_slider.val
     DU1, DU2 = system([U1, U2])
     clrMap = (np.hypot(DU1, DU2))
     clrMap[ clrMap==0 ] = 1
@@ -78,7 +75,6 @@ def update_plot(*args):
 # setup plot
 fig = plt.figure(figsize=(8,6))
 fig.tight_layout(pad=5.0)
-fig.subplots_adjust(bottom=0.5, hspace=0.5)
 ax = fig.add_subplot(1,1,1)
 
 # plot quivers
@@ -93,17 +89,18 @@ DU1 /= clrMap
 DU2 /= clrMap
 
 Q = ax.quiver(U1, U2, DU1, DU2, clrMap, pivot='mid')
-ax.set_xlabel(f'$u_{i}$')
-ax.set_ylabel(f"$u_{j}$")
+ax.set_xlabel(f'$u_{0}$')
+ax.set_ylabel(f"$u_{1}$")
 ax.grid()
 
+fig2 = plt.figure(figsize=(8,6))
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=g, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=A, valstep=0.05)
-a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{i}$ constant slider', valmin=0.1, valmax=1, valinit=a[i], valstep=0.01)
-a1_constants_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'$a_{j}$ constant slider', valmin=0.1, valmax=1, valinit=a[j], valstep=0.01)
-I0_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'$I_{i}$ slider', valmin=-15, valmax=15, valinit=I[i], valstep=0.01)
-I0_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{j}$ slider', valmin=-15, valmax=15, valinit=I[j], valstep=0.01)
-s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(i)+str(j)), valmin=-10, valmax=10, valinit=s[0][1], valstep=0.1)
+a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{0}$ constant slider', valmin=0.1, valmax=1, valinit=a[0], valstep=0.01)
+a1_constants_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'$a_{1}$ constant slider', valmin=0.1, valmax=1, valinit=a[1], valstep=0.01)
+I0_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=I[0], valstep=0.01)
+I1_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=I[1], valstep=0.01)
+s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(0)+str(1)), valmin=-10, valmax=10, valinit=s[0][1], valstep=0.1)
 
 g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)
