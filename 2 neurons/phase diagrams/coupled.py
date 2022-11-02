@@ -93,7 +93,8 @@ ax.set_xlabel(f'$u_{0}$')
 ax.set_ylabel(f"$u_{1}$")
 ax.grid()
 
-fig2 = plt.figure(figsize=(8,6))
+# create sliders
+fig2 = plt.figure()
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=g, valstep=0.01)
 A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=A, valstep=0.05)
 a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{0}$ constant slider', valmin=0.1, valmax=1, valinit=a[0], valstep=0.01)
@@ -109,4 +110,5 @@ I0_slider.on_changed(update_plot)
 I0_slider.on_changed(update_plot)
 s_slider.on_changed(update_plot)
 
+# display
 plt.show()
