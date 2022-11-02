@@ -6,8 +6,8 @@ import numpy as np
 
 # script constants
 NUMBER_OF_NEURONS = 2
-i = 0
-j = 1
+i = 1
+j = 0
 
 # network state
 I = [2.5, 10]
@@ -17,7 +17,7 @@ g = 5
 a = [0.24, 0.63]
 A = 2
 H = 1.3
-B = [[0, 1.8]]
+B = np.array([ [0, 1.8], [1.8, 0] ])
 
 # mathematical functions
 def sigmoid(x):
