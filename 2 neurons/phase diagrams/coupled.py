@@ -71,7 +71,6 @@ def update_plot(*args):
     Q.set_UVC(DU1, DU2)
     fig.canvas.draw()
 
-
 # setup plot
 fig = plt.figure(figsize=(8,6))
 fig.tight_layout(pad=5.0)
