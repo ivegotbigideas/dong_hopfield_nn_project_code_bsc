@@ -17,13 +17,9 @@ g = 5
 a = [1, 1]
 A = 2
 
-# custom constants
-Z = 10
-
 # mathematical functions
 def sigmoid(x):
-    value = 2/pi*np.arctan(1.4*pi*x/2)
-    return value
+    return 2/pi*np.arctan(1.4*pi*x/2)
 
 def dudt(neuron_id, number_of_neurons, u, I, s, g, a):
     term_1 = -u[neuron_id]
