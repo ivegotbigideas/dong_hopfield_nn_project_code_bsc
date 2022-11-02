@@ -14,7 +14,7 @@ I = [2.5, 10]
 a = [0.24, 0.63]
 
 # mathematical constants
-g = 0.5
+g = 5
 A = 2
 H = 1.3
 B = [[0, 1.8]]
@@ -52,25 +52,25 @@ def dsdt(u, s):
 def system(u, s):
     return np.array([dudt(u, s), dsdt(u, s)])
 
-# find fixed points
-def find_fixed_points(rng):
-    fixed_points = []
-    for u in range(-rng, rng):
-        for s in range(-rng, rng):
-            if ((dudt(u, s) == 0) and (dsdt(u, s) == 0)):
-                fixed_points.append((u,s))
-    return fixed_points
+# # find fixed points
+# def find_fixed_points(rng):
+#     fixed_points = []
+#     for u in range(-rng, rng):
+#         for s in range(-rng, rng):
+#             if ((dudt(u, s) == 0) and (dsdt(u, s) == 0)):
+#                 fixed_points.append((u,s))
+#     return fixed_points
 
-fixed_points = find_fixed_points(50)
+# fixed_points = find_fixed_points(50)
 
 # setup plot
 fig = plt.figure(figsize=(8,6))
 ax = fig.add_subplot(1,1,1)
 
-# plot fixed points
-for point in fixed_points:
-    print(point)
-    ax.plot(point[0],point[1],"red", marker = "o", markersize = 10.0)
+# # plot fixed points
+# for point in fixed_points:
+#     print(point)
+#     ax.plot(point[0],point[1],"red", marker = "o", markersize = 10.0)
 
 # plot quivers
 u = np.linspace(-50,50,20)
