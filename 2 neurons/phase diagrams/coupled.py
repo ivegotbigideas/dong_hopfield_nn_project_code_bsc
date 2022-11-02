@@ -11,10 +11,10 @@ j = 1
 
 # network state
 I = [2.5, 10]
-a = [0.24, 0.63]
 
-# mathematical constants
+# equation constants
 g = 5
+a = [0.24, 0.63]
 A = 2
 H = 1.3
 B = [[0, 1.8]]
