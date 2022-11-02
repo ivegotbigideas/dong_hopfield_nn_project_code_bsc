@@ -29,7 +29,7 @@ def dudt(neuron_id, number_of_neurons, u, I, s, g, a):
     term_1 = -u[neuron_id]
 
     sum = 0
-    for pointer in range(number_of_neurons-1):
+    for pointer in range(number_of_neurons):
         if pointer != neuron_id:
             connection_strength=sigmoid(s[neuron_id, pointer]) # T
             sum += connection_strength * sigmoid(u[pointer])
@@ -78,8 +78,8 @@ fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 
 # plot quivers
-u1 = np.linspace(-3,3,20)
-u2 = np.linspace(-3,3,20)
+u1 = np.linspace(-6,6,20)
+u2 = np.linspace(-6,6,20)
 
 U1, U2 = np.meshgrid(u1, u2)
 DU1, DU2 = system([U1, U2])
@@ -99,7 +99,7 @@ A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slide
 a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{0}$ constant slider', valmin=0.1, valmax=1, valinit=a[0], valstep=0.01)
 a1_constants_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'$a_{1}$ constant slider', valmin=0.1, valmax=1, valinit=a[1], valstep=0.01)
 I0_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=I[0], valstep=0.01)
-I1_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=I[1], valstep=0.01)
+I1_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{1}$ slider', valmin=-15, valmax=15, valinit=I[1], valstep=0.01)
 s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(0)+str(1)), valmin=-10, valmax=10, valinit=s[0][1], valstep=0.1)
 
 g_constant_slider.on_changed(update_plot)
