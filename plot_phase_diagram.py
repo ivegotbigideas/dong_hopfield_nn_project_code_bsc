@@ -36,7 +36,7 @@ def update_plot(*args):
 
     global I
     I[focal_neurons[0]] = I0_slider.val
-    I[focal_neurons[1]] = I0_slider.val
+    I[focal_neurons[1]] = I1_slider.val
 
     global s
     s[focal_neurons[0]][focal_neurons[1]] = s_slider.val
