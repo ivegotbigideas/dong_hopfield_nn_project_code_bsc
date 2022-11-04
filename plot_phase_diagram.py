@@ -1,13 +1,8 @@
 from math import e as exp
 from matplotlib.widgets import Slider
-from scipy import integrate
-from mathematical_functions import dudt
+from mathematical_functions import focal_neurons, two_dim_system
 import matplotlib.pyplot as plt
 import numpy as np
-
-# basic script information
-NUMBER_OF_NEURONS = 2
-focal_neurons = [0,1]
 
 # network state
 I = [0, 0]
@@ -17,10 +12,6 @@ s = np.array([ [0, 1], [1, 0] ])
 g = 5
 a = [1, 1]
 A = 2
-
-# mathematical functions
-def two_dim_system(u):
-    return np.array([dudt(focal_neurons[0], NUMBER_OF_NEURONS, u, I, s, g, a, A), dudt(focal_neurons[1], NUMBER_OF_NEURONS, u, I, s, g, a, A)])
 
 # plotting functions
 def update_plot(*args):
@@ -42,7 +33,7 @@ def update_plot(*args):
     s[focal_neurons[0]][focal_neurons[1]] = s_slider.val
     s[focal_neurons[1]][focal_neurons[0]] = s_slider.val
 
-    DU0, DU1 = two_dim_system([U0, U1])
+    DU0, DU1 = two_dim_system([U0, U1], I, s, g, a, A)
     clrMap = (np.hypot(DU0, DU1))
     clrMap[ clrMap==0 ] = 1
     DU0 /= clrMap
@@ -61,7 +52,7 @@ u0 = np.linspace(-6,6,20)
 u1 = np.linspace(-6,6,20)
 
 U0, U1 = np.meshgrid(u0, u1)
-DU0, DU1 = two_dim_system([U0, U1])
+DU0, DU1 = two_dim_system([U0, U1], I, s, g, a, A)
 clrMap = (np.hypot(DU0, DU1))
 clrMap[ clrMap==0 ] = 1
 DU0 /= clrMap
