@@ -42,13 +42,13 @@ def update_plot(*args):
     s[focal_neurons[0]][focal_neurons[1]] = s_slider.val
     s[focal_neurons[1]][focal_neurons[0]] = s_slider.val
 
-    DU1, DU2 = system([U1, U2])
-    clrMap = (np.hypot(DU1, DU2))
+    DU0, DU1 = system([U0, U1])
+    clrMap = (np.hypot(DU0, DU1))
     clrMap[ clrMap==0 ] = 1
+    DU0 /= clrMap
     DU1 /= clrMap
-    DU2 /= clrMap
 
-    Q.set_UVC(DU1, DU2)
+    Q.set_UVC(DU0, DU1)
     fig.canvas.draw()
 
 # setup plot
@@ -57,17 +57,17 @@ fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 
 # plot quivers
+u0 = np.linspace(-6,6,20)
 u1 = np.linspace(-6,6,20)
-u2 = np.linspace(-6,6,20)
 
-U1, U2 = np.meshgrid(u1, u2)
-DU1, DU2 = system([U1, U2])
-clrMap = (np.hypot(DU1, DU2))
+U0, U1 = np.meshgrid(u0, u1)
+DU0, DU1 = system([U0, U1])
+clrMap = (np.hypot(DU0, DU1))
 clrMap[ clrMap==0 ] = 1
+DU0 /= clrMap
 DU1 /= clrMap
-DU2 /= clrMap
 
-Q = ax.quiver(U1, U2, DU1, DU2, clrMap, pivot='mid')
+Q = ax.quiver(U0, U1, DU0, DU1, clrMap, pivot='mid')
 ax.set_xlabel(f'$u_{focal_neurons[0]}$')
 ax.set_ylabel(f"$u_{focal_neurons[1]}$")
 ax.grid()
