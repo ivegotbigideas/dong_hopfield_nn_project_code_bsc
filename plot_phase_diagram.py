@@ -19,7 +19,7 @@ a = [1, 1]
 A = 2
 
 # mathematical functions
-def system(u):
+def two_dim_system(u):
     return np.array([dudt(focal_neurons[0], NUMBER_OF_NEURONS, u, I, s, g, a, A), dudt(focal_neurons[1], NUMBER_OF_NEURONS, u, I, s, g, a, A)])
 
 # plotting functions
@@ -42,7 +42,7 @@ def update_plot(*args):
     s[focal_neurons[0]][focal_neurons[1]] = s_slider.val
     s[focal_neurons[1]][focal_neurons[0]] = s_slider.val
 
-    DU0, DU1 = system([U0, U1])
+    DU0, DU1 = two_dim_system([U0, U1])
     clrMap = (np.hypot(DU0, DU1))
     clrMap[ clrMap==0 ] = 1
     DU0 /= clrMap
@@ -61,7 +61,7 @@ u0 = np.linspace(-6,6,20)
 u1 = np.linspace(-6,6,20)
 
 U0, U1 = np.meshgrid(u0, u1)
-DU0, DU1 = system([U0, U1])
+DU0, DU1 = two_dim_system([U0, U1])
 clrMap = (np.hypot(DU0, DU1))
 clrMap[ clrMap==0 ] = 1
 DU0 /= clrMap
