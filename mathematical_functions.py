@@ -1,4 +1,5 @@
 from math import pi
+from scipy import optimize
 import numpy as np
 
 # basic script information
@@ -8,7 +9,7 @@ focal_neurons = [0,1]
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
-def dudt(neuron_id, number_of_neurons, u, I, s, g, a, A):
+def dudt(u, neuron_id, number_of_neurons, I, s, g, a, A):
     term_1 = -u[neuron_id]
 
     sum = 0
@@ -24,4 +25,13 @@ def dudt(neuron_id, number_of_neurons, u, I, s, g, a, A):
     return derivative
 
 def two_dim_system(u, I, s, g, a, A):
-    return np.array([dudt(focal_neurons[0], NUMBER_OF_NEURONS, u, I, s, g, a, A), dudt(focal_neurons[1], NUMBER_OF_NEURONS, u, I, s, g, a, A)])
+    return np.array([dudt(u, focal_neurons[0], NUMBER_OF_NEURONS, I, s, g, a, A), dudt(u, focal_neurons[1], NUMBER_OF_NEURONS, I, s, g, a, A)])
+
+def find_fixed_points(I, s, g, a, A):
+    values = optimize.fixed_point(test, [[-0.5,-0.5],[0.01,0.01],[0.5,0.5]], args=(s, g), maxiter=2000)
+    print(values)
+    return values
+
+def test(u1, s, g):
+    u0 = g*sigmoid(s[0][1])*sigmoid(u1)
+    return u0
