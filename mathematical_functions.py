@@ -28,8 +28,12 @@ def two_dim_system(u, I, s, g, a, A):
     return np.array([dudt(u, focal_neurons[0], NUMBER_OF_NEURONS, I, s, g, a, A), dudt(u, focal_neurons[1], NUMBER_OF_NEURONS, I, s, g, a, A)])
 
 def find_fixed_points(I, s, g, a, A):
-    values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5,-0.5],[0.01,0.01],[0.5,0.5]], args=(s, g), maxiter=2000)
+    x_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
+    y_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
+    values = []
+    for index in range(len(x_values)):
+        values.append([x_values[index][0], y_values[index][0]])
     return values
 
-def iterate_2d_sys_fixed_point(u1, s, g):
-    return g*sigmoid(s[focal_neurons[0]][focal_neurons[1]])*sigmoid(u1)
+def iterate_2d_sys_fixed_point(u, s, g):
+    return g*sigmoid(s[focal_neurons[0]][focal_neurons[1]])*sigmoid(u)
