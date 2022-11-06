@@ -41,7 +41,7 @@ def update_plot(*args):
 
     fp = find_fixed_points(I, s, g, a, A)
     for point in fp:
-        C = ax.plot(point[0],point[1],"red", marker = "o", markersize = 10.0)
+        C = ax.plot(point[0],point[1],"red", marker = "x", markersize = 7.0)
 
     Q.set_UVC(DU0, DU1)
     fig.canvas.draw()
@@ -64,7 +64,7 @@ DU1 /= clrMap
 
 fp = find_fixed_points(I, s, g, a, A)
 for point in fp:
-    C = ax.plot(point[0],point[1],"red", marker = "o", markersize = 10.0)
+    C = ax.plot(point[0],point[1],"red", marker = "x", markersize = 7.0)
 
 Q = ax.quiver(U0, U1, DU0, DU1, clrMap, pivot='mid')
 ax.set_xlabel(f'$u_{focal_neurons[0]}$')
