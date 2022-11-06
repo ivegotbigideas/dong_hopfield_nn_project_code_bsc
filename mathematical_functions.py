@@ -28,10 +28,9 @@ def two_dim_system(u, I, s, g, a, A):
     return np.array([dudt(u, focal_neurons[0], NUMBER_OF_NEURONS, I, s, g, a, A), dudt(u, focal_neurons[1], NUMBER_OF_NEURONS, I, s, g, a, A)])
 
 def find_fixed_points(I, s, g, a, A):
-    values = optimize.fixed_point(test, [[-0.5,-0.5],[0.01,0.01],[0.5,0.5]], args=(s, g), maxiter=2000)
-    print(values)
+    values = optimize.fixed_point(dudu_equals_0, [[-0.5,-0.5],[0.01,0.01],[0.5,0.5]], args=(s, g), maxiter=2000)
     return values
 
-def test(u1, s, g):
+def dudu_equals_0(u1, s, g):
     u0 = g*sigmoid(s[0][1])*sigmoid(u1)
     return u0
