@@ -51,7 +51,7 @@ fig = plt.figure(figsize=(8,6))
 fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 
-# plot quivers
+# prepare data
 u0 = np.linspace(-6,6,20)
 u1 = np.linspace(-6,6,20)
 
@@ -67,6 +67,7 @@ C = []
 for point in fp:
     C.append(ax.plot(point[0], point[1],"red", marker = "x", markersize = 7.0))
 
+# plot quivers
 Q = ax.quiver(U0, U1, DU0, DU1, clrMap, pivot='mid')
 ax.set_xlabel(f'$u_{focal_neurons[0]}$')
 ax.set_ylabel(f"$u_{focal_neurons[1]}$")
