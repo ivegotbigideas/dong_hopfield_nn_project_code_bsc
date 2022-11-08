@@ -35,5 +35,6 @@ def find_fixed_points(I, s, g, a, A):
         values.append([hor_values[index][0], vert_values[index][0]])
     return values
 
+# This function only works in a specific case right now. It should be generalised
 def iterate_2d_sys_fixed_point(u, s, g):
     return g*sigmoid(s[focal_neurons[0]][focal_neurons[1]])*sigmoid(u)
