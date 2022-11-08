@@ -1,6 +1,6 @@
 from math import e as exp
 from matplotlib.widgets import Slider
-from mathematical_functions import focal_neurons, two_dim_system, find_fixed_points
+from mathematical_functions import focal_neurons, two_dim_system, find_fixed_points_of_2D_system
 from network_state import I, s, g, a, A
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +31,7 @@ def update_plot(*args):
     DU0 /= clrMap
     DU1 /= clrMap
 
-    fp = find_fixed_points(I, s, g, a, A)
+    fp = find_fixed_points_of_2D_system(I, s, g, a, A)
     for marker in range(len(C)):
         C[marker][0].set_data(fp[marker])
 
@@ -54,7 +54,7 @@ clrMap[ clrMap==0 ] = 1
 DU0 /= clrMap
 DU1 /= clrMap
 
-fp = find_fixed_points(I, s, g, a, A)
+fp = find_fixed_points_of_2D_system(I, s, g, a, A)
 C = []
 for point in fp:
     C.append(ax.plot(point[0], point[1],"red", marker = "x", markersize = 7.0))

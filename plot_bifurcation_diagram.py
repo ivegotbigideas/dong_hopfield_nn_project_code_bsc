@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mathematical_functions import find_fixed_points
+from mathematical_functions import find_fixed_points_of_2D_system
 from network_state import I, g, a, A
 
 # horizontal axis values
@@ -17,7 +17,7 @@ ax.set_ylabel("u0")
 fp = []
 for s_value in s_values:
     s_matrix = np.array([[0, s_value],[s_value, 0]])
-    fp.append(find_fixed_points(I, s_matrix, g, a, A))
+    fp.append(find_fixed_points_of_2D_system(I, s_matrix, g, a, A))
 
 u0_fps = []
 for point in fp:
