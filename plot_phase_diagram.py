@@ -7,21 +7,16 @@ import numpy as np
 
 # plotting functions
 def update_plot(*args):
-    global g
     g = g_constant_slider.val
 
-    global A
     A = A_constant_slider.val
 
-    global a
     a[focal_neurons[0]] = a0_constants_slider.val
     a[focal_neurons[1]] = a1_constants_slider.val
 
-    global I
     I[focal_neurons[0]] = I0_slider.val
     I[focal_neurons[1]] = I1_slider.val
 
-    global s
     s[focal_neurons[0]][focal_neurons[1]] = s_slider.val
     s[focal_neurons[1]][focal_neurons[0]] = s_slider.val
 
@@ -78,6 +73,7 @@ s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(fo
 g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)
 a0_constants_slider.on_changed(update_plot)
+a1_constants_slider.on_changed(update_plot)
 I0_slider.on_changed(update_plot)
 I1_slider.on_changed(update_plot)
 s_slider.on_changed(update_plot)
