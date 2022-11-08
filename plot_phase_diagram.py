@@ -79,7 +79,7 @@ g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)
 a0_constants_slider.on_changed(update_plot)
 I0_slider.on_changed(update_plot)
-I0_slider.on_changed(update_plot)
+I1_slider.on_changed(update_plot)
 s_slider.on_changed(update_plot)
 
 # display
