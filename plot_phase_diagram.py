@@ -73,7 +73,7 @@ a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{focal_neur
 a1_constants_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'$a_{focal_neurons[1]}$ constant slider', valmin=0.1, valmax=1, valinit=a[focal_neurons[1]], valstep=0.01)
 I0_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=I[focal_neurons[0]], valstep=0.01)
 I1_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{1}$ slider', valmin=-15, valmax=15, valinit=I[focal_neurons[1]], valstep=0.01)
-s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(focal_neurons[0])+str(focal_neurons[1])), valmin=0, valmax=30, valinit=s[focal_neurons[0]][focal_neurons[1]], valstep=0.1)
+s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(focal_neurons[0])+str(focal_neurons[1])), valmin=-30, valmax=30, valinit=s[focal_neurons[0]][focal_neurons[1]], valstep=0.1)
 
 g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)

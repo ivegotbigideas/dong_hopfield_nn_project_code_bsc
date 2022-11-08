@@ -29,8 +29,8 @@ def two_dim_system(u, I, s, g, a, A):
 
 # Note that due to the nature of optimize.fixed_point, this function only works due to the symmetry of the fixed points
 def find_fixed_points_of_2D_system(I, s, g, a, A):
-    hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
-    vert_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
+    hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0],[0.5]], args=(s, g), maxiter=2000)
+    vert_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0],[0.5]], args=(s, g), maxiter=2000)
     values = []
     for index in range(len(hor_values)):
         values.append([hor_values[index][0], vert_values[index][0]])
@@ -38,4 +38,5 @@ def find_fixed_points_of_2D_system(I, s, g, a, A):
 
 # This function only works in a specific case right now - a 2 neuron system with no external stimulus. It should be generalised
 def iterate_2d_sys_fixed_point(u, s, g):
-    return g*sigmoid(s[focal_neurons[0]][focal_neurons[1]])*sigmoid(u)
+    value = g * sigmoid(s[focal_neurons[0]][focal_neurons[1]]) * sigmoid(g * sigmoid(s[focal_neurons[1]][focal_neurons[0]]) * sigmoid(u))
+    return value
