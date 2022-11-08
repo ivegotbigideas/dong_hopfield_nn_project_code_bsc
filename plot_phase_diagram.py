@@ -1,17 +1,9 @@
 from math import e as exp
 from matplotlib.widgets import Slider
 from mathematical_functions import focal_neurons, two_dim_system, find_fixed_points
+from network_state import I, s, g, a, A
 import matplotlib.pyplot as plt
 import numpy as np
-
-# network state
-I = [0, 0]
-s = np.array([ [0, 0], [0, 0] ])
-
-# equation constants
-g = 5
-a = [1, 1]
-A = 2
 
 # plotting functions
 def update_plot(*args):
