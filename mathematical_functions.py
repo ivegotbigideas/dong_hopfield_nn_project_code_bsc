@@ -27,6 +27,7 @@ def dudt(u, neuron_id, number_of_neurons, I, s, g, a, A):
 def two_dim_system(u, I, s, g, a, A):
     return np.array([dudt(u, focal_neurons[0], NUMBER_OF_NEURONS, I, s, g, a, A), dudt(u, focal_neurons[1], NUMBER_OF_NEURONS, I, s, g, a, A)])
 
+# Note that due to the nature of optimize.fixed_point, this function only works due to the symmetry of the fixed points
 def find_fixed_points_of_2D_system(I, s, g, a, A):
     hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
     vert_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-0.5],[0.01],[0.5]], args=(s, g), maxiter=2000)
