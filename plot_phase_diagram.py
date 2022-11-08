@@ -1,7 +1,7 @@
 from math import e as exp
 from matplotlib.widgets import Slider
-from mathematical_functions import focal_neurons, two_dim_system, find_fixed_points_of_2D_system
-from network_state import I, s, g, a, A
+from mathematical_functions import two_dim_system, find_fixed_points_of_2D_system
+from network_state import I, s, g, a, A, focal_neurons
 import matplotlib.pyplot as plt
 import numpy as np
 

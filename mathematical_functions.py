@@ -1,10 +1,7 @@
 from math import pi
 from scipy import optimize
+from network_state import focal_neurons, NUMBER_OF_NEURONS
 import numpy as np
-
-# basic script information
-NUMBER_OF_NEURONS = 2
-focal_neurons = [0,1]
 
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
