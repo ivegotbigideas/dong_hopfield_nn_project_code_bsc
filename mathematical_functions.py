@@ -24,7 +24,6 @@ def dudt(u, neuron_id):
 def two_dim_system(u):
     return np.array([dudt(u, network.focal_neurons[0]), dudt(u, network.focal_neurons[1])])
 
-# TODO: Update guesses when s_id < 0
 def find_fixed_points_of_2D_system():
     if network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0:
         hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
