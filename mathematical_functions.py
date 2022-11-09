@@ -26,17 +26,17 @@ def two_dim_system(u):
 
 def find_fixed_points_of_2D_system():
     if network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0:
-        hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
-        vert_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
+        hor_values = optimize.fixed_point(iter_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
+        vert_values = optimize.fixed_point(iter_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
     else:
-        hor_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
-        vert_values = optimize.fixed_point(iterate_2d_sys_fixed_point, [[3],[0],[-3]], maxiter=2000)
+        hor_values = optimize.fixed_point(iter_2d_sys_fixed_point, [[-3],[0],[3]], maxiter=2000)
+        vert_values = optimize.fixed_point(iter_2d_sys_fixed_point, [[3],[0],[-3]], maxiter=2000)
     values = []
     for index in range(len(hor_values)):
         values.append([hor_values[index][0], vert_values[index][0]])
     return values
 
 # This function only works in a specific case right now - a 2 neuron system with no external stimulus. It should be generalised
-def iterate_2d_sys_fixed_point(u):
+def iter_2d_sys_fixed_point(u):
     value = network.g * sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) * sigmoid(network.g * sigmoid(network.s[network.focal_neurons[1]][network.focal_neurons[0]]) * sigmoid(u))
     return value
