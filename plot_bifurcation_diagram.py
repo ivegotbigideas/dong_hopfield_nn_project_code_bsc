@@ -23,9 +23,6 @@ u0_fps = []
 for point in fp:
     u0_fps.append([point[0][0], point[1][0], point[2][0]])
 
-for element in range(len(u0_fps)):
-    print(str(element) + ": " + str(u0_fps[element]))
-
 # plot data
 ax.plot(s_values, u0_fps, color="r")
 
