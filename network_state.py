@@ -8,7 +8,7 @@ class Network:
 
         # network state
         self.I = [0, 0]
-        self.s = np.array([ [0, 0], [0, 0] ])
+        self.s = np.array([ [0, 0], [0, 0] ], dtype=np.float64)
 
         # equation constants
         self.g = 5
