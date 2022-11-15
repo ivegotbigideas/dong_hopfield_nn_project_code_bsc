@@ -1,10 +1,11 @@
-from mathematical_functions import find_fixed_points_of_2D_system
+from mathematical_functions import find_fixed_points_of_2D_system, test_instability_condition
 from network_state import network
+from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 
 # horizontal axis values
-s_values = np.linspace(0,4,1000)
+s_values = np.linspace(0,1,1000)
 
 # setup plot
 fig = plt.figure(figsize=(8,6))
@@ -15,16 +16,22 @@ ax.set_ylabel("$u_{%s}$ (fixed points)" % network.focal_neurons[0])
 
 # prepare data
 fp = []
+unstable_fp_s_values = []
 for s_value in s_values:
     network.s = np.array([[0, s_value],[s_value, 0]])
-    fp.append(find_fixed_points_of_2D_system())
+    numerical_fixed_points = find_fixed_points_of_2D_system()
+    fp.append(numerical_fixed_points)
 
-u0_fps = []
+    if test_instability_condition(s_value):
+        unstable_fp_s_values.append(s_value)
+
+u0_fixed_points = []
 for point in fp:
-    u0_fps.append([point[0][0], point[1][0], point[2][0]])
+    u0_fixed_points.append([point[0][0], point[1][0]]) #[fixed_point_id][neuron_id]
 
 # plot data
-ax.plot(s_values, u0_fps, color="r")
+ax.plot(s_values, u0_fixed_points, color="r")
+ax.plot(unstable_fp_s_values, [0]*len(unstable_fp_s_values), '--')
 
 # display
 plt.show()
