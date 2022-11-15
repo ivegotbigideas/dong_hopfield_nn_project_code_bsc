@@ -26,9 +26,9 @@ def two_dim_system(u):
 
 def find_fixed_points_of_2D_system():
     if network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0:
-        u_inits = [[-3, -3], [0, 0], [3, 3]]
+        u_inits = [[-3, -3], [3, 3]]
     else:
-        u_inits = [[-3, 3], [0, 0], [3, -3]]
+        u_inits = [[-3, 3], [3, -3]]
     fixed_points = []
     for u_init in u_inits:
         fixed_point = optimize.newton(two_dim_system, u_init, maxiter=2000)
