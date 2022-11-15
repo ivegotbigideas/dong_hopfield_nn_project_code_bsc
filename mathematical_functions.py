@@ -42,8 +42,8 @@ def test_instability_condition(s_value):
     unstable = False
     if network.g == 0:
         unstable = True
-    elif s_value > inverse_sigmoid(5/(7*network.g*sqrt(network.a[network.focal_neurons[0]]*network.a[network.focal_neurons[1]]))):
+    elif s_value > inverse_sigmoid(5/(7*network.g)):
         unstable = True
-    elif s_value < inverse_sigmoid(-5/(7*network.g*sqrt(network.a[network.focal_neurons[0]]*network.a[network.focal_neurons[1]]))):
+    elif s_value < inverse_sigmoid(-5/(7*network.g)):
         unstable = True
     return unstable
