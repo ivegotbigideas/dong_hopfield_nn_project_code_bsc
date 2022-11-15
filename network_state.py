@@ -11,7 +11,7 @@ class Network:
         self.s = np.array([ [0, 0], [0, 0] ], dtype=np.float64)
 
         # equation constants
-        self.g = 5
+        self.g = 3
         self.a = [1, 1]
         self.A = 2
 
