@@ -16,6 +16,7 @@ def prepare_derivative_data():
 
 # plotting functions
 def update_plot(*args):
+    # update network values
     network.g = g_constant_slider.val
 
     network.A = A_constant_slider.val
@@ -29,13 +30,13 @@ def update_plot(*args):
     network.s[network.focal_neurons[0]][network.focal_neurons[1]] = s_slider.val
     network.s[network.focal_neurons[1]][network.focal_neurons[0]] = s_slider.val
 
-    DU0, DU1, clrMap = prepare_derivative_data()
-
     # update fixed point data
     fp = find_fixed_points_of_2D_system()
     for marker in range(len(C)):
         C[marker][0].set_data(fp[marker])
 
+    # update derivative data
+    DU0, DU1, clrMap = prepare_derivative_data()
     Q.set_UVC(DU0, DU1, clrMap)
     fig.canvas.draw()
 
