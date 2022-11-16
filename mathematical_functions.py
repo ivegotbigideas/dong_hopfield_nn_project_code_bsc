@@ -28,7 +28,7 @@ def two_dim_system(u):
     return np.array([dudt(u, network.focal_neurons[0]), dudt(u, network.focal_neurons[1])])
 
 def find_fixed_points_of_2D_system():
-    if network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0:
+    if (network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (network.s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
         u_inits = [[-3, -3], [3, 3]]
     else:
         u_inits = [[-3, 3], [3, -3]]
@@ -42,8 +42,6 @@ def test_instability_condition(s_value):
     unstable = False
     if network.g == 0:
         unstable = True
-    elif s_value > inverse_sigmoid(5/(7*network.g)):
-        unstable = True
-    elif s_value < inverse_sigmoid(-5/(7*network.g)):
+    elif abs(s_value) > inverse_sigmoid(5/(7*network.g)):
         unstable = True
     return unstable
