@@ -29,7 +29,7 @@ for s_value in s_values:
 
 u0_fixed_points = []
 for point in fp:
-    u0_fixed_points.append([point[0][0], point[1][0]]) #[fixed_point_id][neuron_id]
+    u0_fixed_points.append([point[0][0], point[2][0]]) #[fixed_point_id][neuron_id]
 
 # plot data
 ax.plot(s_values, u0_fixed_points, color="r")
