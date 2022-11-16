@@ -13,6 +13,8 @@ fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 ax.set_xlabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])))
 ax.set_ylabel("$u_{%s}$ (fixed points)" % network.focal_neurons[0])
+plt.xlim([0, 1])
+plt.ylim([-2, 2])
 
 # prepare data
 fp = []

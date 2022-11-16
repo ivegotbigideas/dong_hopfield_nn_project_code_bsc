@@ -41,7 +41,7 @@ def find_fixed_points_of_2D_system():
 def test_instability_condition(s_value):
     unstable = False
     if network.g == 0:
-        unstable = True
-    elif abs(s_value) > inverse_sigmoid(5/(7*network.g)):
+        pass
+    elif sigmoid(s_value) > 5/(7*network.g) or sigmoid(s_value) < -5/(7*network.g):
         unstable = True
     return unstable
