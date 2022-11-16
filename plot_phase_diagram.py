@@ -5,6 +5,15 @@ from network_state import network
 import matplotlib.pyplot as plt
 import numpy as np
 
+# data preparation functions
+def prepare_derivative_data():
+    DU0, DU1 = two_dim_system([U0, U1])
+    clrMap = (np.hypot(DU0, DU1))
+    clrMap[ clrMap==0 ] = 1
+    DU0 /= clrMap
+    DU1 /= clrMap
+    return DU0, DU1, clrMap
+
 # plotting functions
 def update_plot(*args):
     network.g = g_constant_slider.val
@@ -14,23 +23,20 @@ def update_plot(*args):
     network.a[network.focal_neurons[0]] = a0_constants_slider.val
     network.a[network.focal_neurons[1]] = a1_constants_slider.val
 
-    # network.I[network.focal_neurons[0]] = I0_slider.val
-    # network.I[network.focal_neurons[1]] = I1_slider.val
+    network.I[network.focal_neurons[0]] = I0_slider.val
+    network.I[network.focal_neurons[1]] = I1_slider.val
 
     network.s[network.focal_neurons[0]][network.focal_neurons[1]] = s_slider.val
     network.s[network.focal_neurons[1]][network.focal_neurons[0]] = s_slider.val
 
-    DU0, DU1 = two_dim_system([U0, U1])
-    clrMap = (np.hypot(DU0, DU1))
-    clrMap[ clrMap==0 ] = 1
-    DU0 /= clrMap
-    DU1 /= clrMap
+    DU0, DU1, clrMap = prepare_derivative_data()
 
+    # update fixed point data
     fp = find_fixed_points_of_2D_system()
     for marker in range(len(C)):
         C[marker][0].set_data(fp[marker])
 
-    Q.set_UVC(DU0, DU1)
+    Q.set_UVC(DU0, DU1, clrMap)
     fig.canvas.draw()
 
 # setup plot
@@ -43,11 +49,7 @@ u0 = np.linspace(-6,6,20)
 u1 = np.linspace(-6,6,20)
 
 U0, U1 = np.meshgrid(u0, u1)
-DU0, DU1 = two_dim_system([U0, U1])
-clrMap = (np.hypot(DU0, DU1))
-clrMap[ clrMap==0 ] = 1
-DU0 /= clrMap
-DU1 /= clrMap
+DU0, DU1, clrMap = prepare_derivative_data()
 
 fp = find_fixed_points_of_2D_system()
 C = []
