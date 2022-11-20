@@ -17,6 +17,7 @@ plt.xlim([-1, 1])
 plt.ylim([-2, 2])
 
 # prepare data
+# TODO: Make more efficient. Add analytically stable fixed point at (0,0)
 fp = []
 unstable_fp_s_values = []
 for s_value in s_values:
@@ -24,7 +25,7 @@ for s_value in s_values:
     numerical_fixed_points = find_fixed_points_of_2D_system()
     fp.append(numerical_fixed_points)
 
-    if test_instability_condition(s_value):
+    if test_instability_condition():
         unstable_fp_s_values.append(s_value)
     else:
         unstable_fp_s_values.append(None)
