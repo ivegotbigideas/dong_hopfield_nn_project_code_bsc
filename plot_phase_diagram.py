@@ -1,13 +1,21 @@
 from math import e as exp
 from matplotlib.widgets import Slider
-from mathematical_functions import two_dim_system, find_fixed_points_of_2D_system
+from mathematical_functions import system_of_eqns, find_fixed_points_of_2D_system
 from network_state import network
 import matplotlib.pyplot as plt
 import numpy as np
 
+# validation
+if network.NUMBER_OF_NEURONS != 2:
+    print("Can only work with 2 neurons! You have: %s neurons." % network.NUMBER_OF_NEURONS)
+    exit(1)
+elif network.I != [0, 0]:
+    print("Can only work with 0 external stimulus! You have external stimulus: %s." % str(network.I))
+    exit(1)
+
 # data preparation functions
 def prepare_derivative_data():
-    DU0, DU1 = two_dim_system([U0, U1])
+    DU0, DU1 = system_of_eqns([U0, U1])
     clrMap = (np.hypot(DU0, DU1))
     clrMap[ clrMap==0 ] = 1
     DU0 /= clrMap

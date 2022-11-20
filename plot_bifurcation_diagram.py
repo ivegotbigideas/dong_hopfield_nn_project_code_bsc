@@ -4,6 +4,14 @@ from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 
+# validation
+if network.NUMBER_OF_NEURONS != 2:
+    print("Can only work with 2 neurons! You have: %s neurons." % network.NUMBER_OF_NEURONS)
+    exit(1)
+elif network.I != [0, 0]:
+    print("Can only work with 0 external stimulus! You have external stimulus: %s." % str(network.I))
+    exit(1)
+
 # horizontal axis values
 s_values = np.linspace(-1,1,1000)
 
