@@ -37,8 +37,10 @@ def find_fixed_points_of_2D_system():
 
 def test_instability_condition():
     unstable = False
+    s = network.s[network.focal_neurons[0]][network.focal_neurons[1]]
+    sig = sigmoid(s)
     if network.g == 0:
         pass
-    elif (sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) > 5/(7*network.g)) ^ (sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) < -5/(7*network.g)):
+    elif (sig > 5/(7*network.g)) ^ (sig < -5/(7*network.g)):
         unstable = True
     return unstable
