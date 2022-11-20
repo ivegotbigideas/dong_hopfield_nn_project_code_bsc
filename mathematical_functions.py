@@ -10,7 +10,7 @@ def dudt(u, neuron_id):
     term_1 = -u[neuron_id]
 
     sum = 0
-    for pointer in range(network.NUMBER_OF_NEURONS):
+    for pointer in range(network.number_of_neurons):
         if pointer != neuron_id:
             connection_strength=sigmoid(network.s[neuron_id, pointer]) # T
             sum += connection_strength * sigmoid(u[pointer])
@@ -23,7 +23,7 @@ def dudt(u, neuron_id):
 
 def system_of_eqns(u):
     equations = []
-    for neuron_id in range(network.NUMBER_OF_NEURONS):
+    for neuron_id in range(network.number_of_neurons):
         equations.append(dudt(u, neuron_id))
     return np.array(equations)
 

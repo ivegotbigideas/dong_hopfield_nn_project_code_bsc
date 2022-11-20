@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # validation
-if network.NUMBER_OF_NEURONS != 2:
-    print("Can only work with 2 neurons! You have: %s neurons." % network.NUMBER_OF_NEURONS)
+if network.number_of_neurons != 2:
+    print("Can only work with 2 neurons! You have: %s neurons." % network.number_of_neurons)
     exit(1)
 elif network.I != [0, 0]:
     print("Can only work with 0 external stimulus! You have external stimulus: %s." % str(network.I))
