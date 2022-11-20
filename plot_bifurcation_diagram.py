@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # horizontal axis values
-s_values = np.linspace(0,1,1000)
+s_values = np.linspace(-1,1,1000)
 
 # setup plot
 fig = plt.figure(figsize=(8,6))
@@ -13,7 +13,7 @@ fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 ax.set_xlabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])))
 ax.set_ylabel("$u_{%s}$ (fixed points)" % network.focal_neurons[0])
-plt.xlim([0, 1])
+plt.xlim([-1, 1])
 plt.ylim([-2, 2])
 
 # prepare data
@@ -26,14 +26,16 @@ for s_value in s_values:
 
     if test_instability_condition(s_value):
         unstable_fp_s_values.append(s_value)
+    else:
+        unstable_fp_s_values.append(None)
 
 u0_fixed_points = []
 for point in fp:
     u0_fixed_points.append([point[0][0], point[2][0]]) #[fixed_point_id][neuron_id]
 
 # plot data
-ax.plot(s_values, u0_fixed_points, color="r")
 ax.plot(unstable_fp_s_values, [0]*len(unstable_fp_s_values), '--')
+ax.plot(s_values, u0_fixed_points, color="r")
 
 # display
 plt.show()
