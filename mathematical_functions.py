@@ -6,9 +6,6 @@ import numpy as np
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
-def inverse_sigmoid(x):
-    return 2/(1.4*pi)*np.tan(pi*x/2)
-
 def dudt(u, neuron_id):
     term_1 = -u[neuron_id]
 
