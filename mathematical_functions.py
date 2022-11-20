@@ -42,6 +42,6 @@ def test_instability_condition():
     unstable = False
     if network.g == 0:
         pass
-    elif sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) > 5/(7*network.g) or sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) < -5/(7*network.g):
+    elif (sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) > 5/(7*network.g)) ^ (sigmoid(network.s[network.focal_neurons[0]][network.focal_neurons[1]]) < -5/(7*network.g)):
         unstable = True
     return unstable
