@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # axis values
 g_values = np.linspace(0, 5, 1000)
-s_values = np.linspace = np.linspace(0, 20, 10000)
+s_values = np.linspace = np.linspace(0, 20, 10000) # Must count from y axis outwards! i.e. must be (0, X, 10000)
 
 # setup plot
 fig = plt.figure(figsize=(8,6))
