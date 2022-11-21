@@ -8,6 +8,7 @@ class Network:
 
         # network state
         self.I = [0]*self.number_of_neurons
+        self.u = [1]*self.number_of_neurons
         self.s = []
         for neuron_id in range(self.number_of_neurons):
             row = [1]*self.number_of_neurons
@@ -19,5 +20,12 @@ class Network:
         self.g = 1
         self.a = [1, 1]
         self.A = 1
+        self.H = 1
+        self.B = []
+        for neuron_id in range(self.number_of_neurons):
+            row = [1]*self.number_of_neurons
+            row[neuron_id] = 0
+            self.B.append(row)
+        self.B = np.array(self.B, dtype=np.float64)
 
 network = Network()
