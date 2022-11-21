@@ -1,4 +1,3 @@
-from math import e as exp
 from matplotlib.widgets import Slider
 from mathematical_functions import system_of_dudt_eqns, find_fixed_points_of_2D_system
 from network_state import network
