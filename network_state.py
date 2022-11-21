@@ -18,13 +18,13 @@ class Network:
 
         # equation constants
         self.g = 1
-        self.a = [1, 1]
+        self.a = [1]*self.number_of_neurons
         self.A = 1
         self.H = 1
         self.B = []
         for neuron_id in range(self.number_of_neurons):
             row = [1]*self.number_of_neurons
-            row[neuron_id] = 0
+            #row[neuron_id] = 0 # uncomment to enable self-coupling
             self.B.append(row)
         self.B = np.array(self.B, dtype=np.float64)
 
