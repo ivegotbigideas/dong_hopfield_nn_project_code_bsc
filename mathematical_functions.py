@@ -21,11 +21,27 @@ def dudt(u, neuron_id):
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
 
-def system_of_eqns(u):
-    equations = []
-    for neuron_id in range(network.number_of_neurons):
-        equations.append(dudt(u, neuron_id))
-    return np.array(equations)
+def dsdt(s, u, neuron_id_1, neuron_id_2):
+    term_1 = -s[neuron_id_1][neuron_id_2]
+    term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
+    derivative = (1/network.B[neuron_id_1][neuron_id_2])*(term_1 + term_2)
+    return derivative
+
+def system_of_dudt_eqns(u, s):
+    du_dt_equations = []
+    all_neuron_ids = range(network.number_of_neurons)
+    for neuron_id_1 in all_neuron_ids:
+        du_dt_equations.append(dudt(u, neuron_id_1))
+    return np.array(du_dt_equations)
+
+def system_of_dsdt_eqns(u, s):
+    ds_dt_equations = []
+    all_neuron_ids = range(network.number_of_neurons)
+    for neuron_id_1 in all_neuron_ids:
+        for neuron_id_2 in all_neuron_ids:
+            if neuron_id_1 != neuron_id_2:
+                ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
+    return np.array(ds_dt_equations)
 
 def find_fixed_points_of_2D_system():
     if (network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (network.s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
@@ -34,7 +50,7 @@ def find_fixed_points_of_2D_system():
         u_inits = [[-3, 3], [0, 0], [3, -3]]
     fixed_points = []
     for u_init in u_inits:
-        fixed_point = optimize.newton(system_of_eqns, u_init, maxiter=2000)
+        fixed_point = optimize.newton(system_of_dudt_eqns, u_init, maxiter=2000, args=(network.s, ))
         fixed_points.append(fixed_point)
     return fixed_points
 

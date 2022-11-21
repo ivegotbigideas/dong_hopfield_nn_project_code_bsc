@@ -1,6 +1,6 @@
 from math import e as exp
 from matplotlib.widgets import Slider
-from mathematical_functions import system_of_eqns, find_fixed_points_of_2D_system
+from mathematical_functions import system_of_dudt_eqns, find_fixed_points_of_2D_system
 from network_state import network
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,7 +15,7 @@ elif network.I != [0, 0]:
 
 # data preparation functions
 def prepare_derivative_data():
-    DU0, DU1 = system_of_eqns([U0, U1])
+    DU0, DU1 = system_of_dudt_eqns([U0, U1], network.s)
     clrMap = (np.hypot(DU0, DU1))
     clrMap[ clrMap==0 ] = 1
     DU0 /= clrMap
