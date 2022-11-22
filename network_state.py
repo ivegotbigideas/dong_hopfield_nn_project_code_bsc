@@ -3,7 +3,7 @@ import numpy as np
 class Network:
     def __init__(self):
         # basic network information
-        self.number_of_neurons = 2
+        self.number_of_neurons = 1
         self.focal_neurons = [0,1] # for plotting so max length should be 2
 
         # network state
