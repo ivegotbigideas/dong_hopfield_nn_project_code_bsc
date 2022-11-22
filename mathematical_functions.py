@@ -6,14 +6,13 @@ import numpy as np
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
-def dudt(u, neuron_id):
+def dudt(u, s, neuron_id):
     term_1 = -u[neuron_id]
 
     sum = 0
     for pointer in range(network.number_of_neurons):
-        if pointer != neuron_id:
-            connection_strength=sigmoid(network.s[neuron_id, pointer]) # T
-            sum += connection_strength * sigmoid(u[pointer])
+        connection_strength=sigmoid(s[neuron_id, pointer]) # T
+        sum += connection_strength * sigmoid(u[pointer])
     term_2 = network.g*sum
 
     term_3 = network.A * network.I[neuron_id]
@@ -31,20 +30,19 @@ def system_of_dudt_eqns(u, s):
     du_dt_equations = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
-        du_dt_equations.append(dudt(u, neuron_id_1))
+        du_dt_equations.append(dudt(u, s, neuron_id_1))
     return np.array(du_dt_equations)
 
-def system_of_dsdt_eqns(u, s):
+def system_of_dsdt_eqns(s, u):
     ds_dt_equations = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
         for neuron_id_2 in all_neuron_ids:
-            if neuron_id_1 != neuron_id_2:
-                ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
+            ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
     return np.array(ds_dt_equations)
 
-def find_fixed_points_of_2D_system():
-    if (network.s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (network.s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
+def find_fixed_points_of_2D_system(s):
+    if (s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
         u_inits = [[-3, -3], [0, 0], [3, 3]]
     else:
         u_inits = [[-3, 3], [0, 0], [3, -3]]

@@ -30,7 +30,7 @@ fp = []
 unstable_fp_s_values = []
 for s_value in s_values:
     network.s = np.array([[0, s_value],[s_value, 0]])
-    numerical_fixed_points = find_fixed_points_of_2D_system()
+    numerical_fixed_points = find_fixed_points_of_2D_system(network.s)
     fp.append(numerical_fixed_points)
 
     if test_instability_condition():

@@ -38,7 +38,7 @@ def update_plot(*args):
     network.s[network.focal_neurons[1]][network.focal_neurons[0]] = s_slider.val
 
     # update fixed point data
-    fp = find_fixed_points_of_2D_system()
+    fp = find_fixed_points_of_2D_system(network.s)
     for marker in range(len(C)):
         C[marker][0].set_data(fp[marker])
 
@@ -60,7 +60,7 @@ u1 = np.linspace(-6,6,20)
 U0, U1 = np.meshgrid(u0, u1)
 DU0, DU1, clrMap = prepare_derivative_data()
 
-fp = find_fixed_points_of_2D_system()
+fp = find_fixed_points_of_2D_system(network.s)
 C = []
 for point in fp:
     C.append(ax.plot(point[0], point[1],"red", marker = "x", markersize = 7.0))
