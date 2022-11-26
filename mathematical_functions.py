@@ -57,8 +57,15 @@ def system_of_dsdt_eqns(conditions):
 # u, t, s
 def simulate_network(conditions, t):
     dudt_eqns = system_of_dudt_eqns(conditions, t)
+    dudt_eqns = np.ndarray.tolist(dudt_eqns)
     dsdt_eqns = system_of_dsdt_eqns(conditions)
-    return dudt_eqns, dsdt_eqns
+ 
+    dsdt_as_vector = []
+    for row in range(len(dsdt_eqns)):
+        for element in dsdt_eqns[row]:
+            dsdt_as_vector.append(element)
+    state = dudt_eqns + dsdt_as_vector
+    return state
 
 def find_fixed_points_of_2D_system(s):
     if (s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
