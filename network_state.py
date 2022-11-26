@@ -9,22 +9,10 @@ class Network:
 
         # network state
         self.u = [0]*self.number_of_neurons
-        self.s = []
-        for neuron_id in range(self.number_of_neurons):
-            row = [1]*self.number_of_neurons
-            row[neuron_id] = 0
-            self.s.append(row)
-        self.s = np.array(self.s, dtype=np.float64)
+        self.s = self.generate_s_matrix(self.number_of_neurons)
 
         # external stimulus
-        self.possible_stimulus_states = []
-        for _ in range(6): # the 6 defines that there are 6 possible states
-            possible_state = []
-            for neuron_id in range(self.number_of_neurons):
-                neuron_stimulus = randint(0,1)
-                if neuron_stimulus == 0: neuron_stimulus = -1
-                possible_state.append(neuron_stimulus)
-            self.possible_stimulus_states.append(possible_state)
+        self.possible_stimulus_states = self.generate_possible_stimulus_states(self.number_of_neurons)
         self.I = self.possible_stimulus_states[0]
 
         # equation constants
@@ -32,11 +20,34 @@ class Network:
         self.a = [1]*self.number_of_neurons
         self.A = 1
         self.H = 1
-        self.B = []
-        for neuron_id in range(self.number_of_neurons):
-            row = [1]*self.number_of_neurons
+        self.B = self.generate_B_matrix(self.number_of_neurons)
+
+    def generate_B_matrix(self, number_of_neurons):
+        B = []
+        for neuron_id in range(number_of_neurons):
+            row = [1]*number_of_neurons
             row[neuron_id] = 0
-            self.B.append(row)
-        self.B = np.array(self.B, dtype=np.float64)
+            B.append(row)
+        return B
+
+    def generate_possible_stimulus_states(self, number_of_neurons):
+        possible_stimulus_states = []
+        for _ in range(6): # the 6 defines that there are 6 possible states
+            possible_state = []
+            for _ in range(number_of_neurons):
+                neuron_stimulus = randint(0,1)
+                if neuron_stimulus == 0: neuron_stimulus = -1
+                possible_state.append(neuron_stimulus)
+            possible_stimulus_states.append(possible_state)
+        return possible_stimulus_states
+
+    def generate_s_matrix(self, number_of_neurons):
+        s = []
+        for neuron_id in range(number_of_neurons):
+            row = [1]*number_of_neurons
+            row[neuron_id] = 0
+            s.append(row)
+        s = np.array(s, dtype=np.float64)
+        return s
 
 network = Network()
