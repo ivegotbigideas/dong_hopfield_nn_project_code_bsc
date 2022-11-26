@@ -12,8 +12,8 @@ class Network:
         self.s = self.generate_s_matrix(self.number_of_neurons)
 
         # external stimulus
-        self.possible_stimulus_states = self.generate_possible_stimulus_states(self.number_of_neurons)
-        self.I = self.possible_stimulus_states[0]
+        _possible_stimulus_states = self.generate_possible_stimulus_states(self.number_of_neurons)
+        self.I = _possible_stimulus_states[0]
 
         # equation constants
         self.g = 1
