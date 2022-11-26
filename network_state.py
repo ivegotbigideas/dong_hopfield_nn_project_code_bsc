@@ -66,4 +66,10 @@ class Network:
             t = (t/self._exposure_time) % 6
             return self.get_I(t)
 
+def break_down_init_cons(init_cons):
+    split = np.array_split(init_cons, network.number_of_neurons+1)
+    u = split[0]
+    s = split[1:network.number_of_neurons+1]
+    return u, s
+
 network = Network()
