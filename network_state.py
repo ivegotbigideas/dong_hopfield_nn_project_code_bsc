@@ -15,14 +15,15 @@ class Network:
         self.s = self._generate_s_matrix()
 
         # external stimulus
+        self._num_stim_vectors = 6
         self._possible_stimulus_states = self._generate_possible_stimulus_states()
-        self._exposure_time = 12
+        self._exposure_time = 1.5
         #self.I = self._possible_stimulus_states[0]
 
         # equation constants
-        self.g = 3
+        self.g = 5
         self.a = [1]*self.number_of_neurons
-        self.A = 3
+        self.A = 7
         self.H = 1
         self.B = self._generate_B_matrix()
 
@@ -36,7 +37,7 @@ class Network:
 
     def _generate_possible_stimulus_states(self):
         possible_stimulus_states = []
-        for _ in range(6): # the 6 defines that there are 6 possible states
+        for _ in range(self._num_stim_vectors):
             possible_state = []
             for _ in range(self.number_of_neurons):
                 neuron_stimulus = randint(0,1)
@@ -58,12 +59,12 @@ class Network:
         if t<0:
             print("t<0!")
             exit(1)
-        elif t<6:
+        elif t<self._num_stim_vectors:
             return self._possible_stimulus_states[floor(t)]
         elif t<self._exposure_time:
-            return self.get_I(t/6)
+            return self.get_I(t/self._num_stim_vectors)
         else:
-            t = (t/self._exposure_time) % 6
+            t = (t/self._exposure_time) % self._num_stim_vectors
             return self.get_I(t)
 
 def break_down_init_cons(init_cons):
