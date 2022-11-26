@@ -1,5 +1,6 @@
 import numpy as np
 from random import randint
+from math import floor
 
 class Network:
     def __init__(self):
@@ -11,23 +12,24 @@ class Network:
 
         # network state
         self.u = [0]*self.number_of_neurons
-        self.s = self._generate_s_matrix(self.number_of_neurons)
+        self.s = self._generate_s_matrix()
 
         # external stimulus
-        self._possible_stimulus_states = self._generate_possible_stimulus_states(self.number_of_neurons)
-        self.I = self._possible_stimulus_states[0]
+        self._possible_stimulus_states = self._generate_possible_stimulus_states()
+        self._exposure_time = 12
+        #self.I = self._possible_stimulus_states[0]
 
         # equation constants
         self.g = 0.3
         self.a = [1]*self.number_of_neurons
         self.A = 2
         self.H = 1
-        self.B = self._generate_B_matrix(self.number_of_neurons)
+        self.B = self._generate_B_matrix()
 
-    def _generate_B_matrix(self, number_of_neurons):
+    def _generate_B_matrix(self):
         B = []
-        for neuron_id in range(number_of_neurons):
-            row = [300]*number_of_neurons
+        for neuron_id in range(self.number_of_neurons):
+            row = [300]*self.number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
@@ -51,5 +53,17 @@ class Network:
             s.append(row)
         s = np.array(s, dtype=np.float64)
         return s
+
+    def get_I(self, t):
+        if t<0:
+            print("t<0!")
+            exit(1)
+        elif t<6:
+            return self._possible_stimulus_states[floor(t)]
+        elif t<self._exposure_time:
+            return self.get_I(t/6)
+        else:
+            t = (t/self._exposure_time) % 6
+            return self.get_I(t)
 
 network = Network()
