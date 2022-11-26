@@ -47,7 +47,7 @@ class Network:
 
     def _generate_s_matrix(self):
         s = []
-        for neuron_id in range(self. number_of_neurons):
+        for neuron_id in range(self.number_of_neurons):
             row = [0]*self.number_of_neurons
             row[neuron_id] = 0
             s.append(row)
