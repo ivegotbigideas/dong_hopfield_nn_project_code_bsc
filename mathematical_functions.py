@@ -3,8 +3,16 @@ from scipy import optimize
 from network_state import network, break_down_init_cons
 import numpy as np
 
+# def sigmoid(x):
+#     return 2/pi*np.arctan(1.4*pi*x/2)
+
 def sigmoid(x):
-    return 2/pi*np.arctan(1.4*pi*x/2)
+    if -1 <= x <= 1:
+        return x
+    elif x < -1:
+        return -1
+    elif 1 < x:
+        return 1
 
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
