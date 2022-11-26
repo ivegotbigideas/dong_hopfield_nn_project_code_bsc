@@ -4,7 +4,9 @@ from random import randint
 class Network:
     def __init__(self):
         # basic network information
-        self.number_of_neurons = 10
+        self.number_of_neurons = 81
+
+        # graphing info
         self.focal_neurons = [0,1] # for plotting so max length should be 2
 
         # network state
@@ -16,16 +18,16 @@ class Network:
         self.I = _possible_stimulus_states[0]
 
         # equation constants
-        self.g = 1
+        self.g = 0.3
         self.a = [1]*self.number_of_neurons
-        self.A = 1
+        self.A = 2
         self.H = 1
         self.B = self.generate_B_matrix(self.number_of_neurons)
 
     def generate_B_matrix(self, number_of_neurons):
         B = []
         for neuron_id in range(number_of_neurons):
-            row = [1]*number_of_neurons
+            row = [300]*number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
