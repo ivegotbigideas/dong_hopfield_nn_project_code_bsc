@@ -5,7 +5,7 @@ from math import floor
 class Network:
     def __init__(self):
         # basic network information
-        self.number_of_neurons = 81
+        self.number_of_neurons = 10
 
         # graphing info
         self.focal_neurons = [0,1] # for plotting so max length should be 2
@@ -20,16 +20,16 @@ class Network:
         #self.I = self._possible_stimulus_states[0]
 
         # equation constants
-        self.g = 0.3
+        self.g = 3
         self.a = [1]*self.number_of_neurons
-        self.A = 30
+        self.A = 3
         self.H = 1
         self.B = self._generate_B_matrix()
 
     def _generate_B_matrix(self):
         B = []
         for neuron_id in range(self.number_of_neurons):
-            row = [300]*self.number_of_neurons
+            row = [10]*self.number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
