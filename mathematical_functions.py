@@ -38,7 +38,8 @@ def system_of_dsdt_eqns(s, u):
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
         for neuron_id_2 in all_neuron_ids:
-            ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
+            if neuron_id_1 != neuron_id_2:
+                ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
     return np.array(ds_dt_equations)
 
 def find_fixed_points_of_2D_system(s):
