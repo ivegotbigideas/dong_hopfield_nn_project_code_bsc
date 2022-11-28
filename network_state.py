@@ -62,7 +62,6 @@ class Network:
             print("t<0!")
             exit(1)
         elif 0 <= t < 12:
-            print(t)
             return self._possible_stimulus_states[0]
         elif 0 <= t < 24:
             return self._possible_stimulus_states[1]
