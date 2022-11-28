@@ -3,9 +3,6 @@ from scipy import optimize
 from network_state import network, break_down_init_cons
 import numpy as np
 
-# def sigmoid(x):
-#     return 2/pi*np.arctan(1.4*pi*x/2)
-
 def sigmoid(x):
     if -1 <= x <= 1:
         return x
