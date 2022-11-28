@@ -22,8 +22,9 @@ def dudt(conditions, t, neuron_id):
 
     sum = 0
     for pointer in range(network.number_of_neurons):
-        connection_strength=sigmoid(s[neuron_id][pointer]) # T
-        sum += connection_strength * sigmoid(u[pointer])
+            if pointer != neuron_id:
+                connection_strength=sigmoid(s[neuron_id][pointer]) # T
+                sum += connection_strength * sigmoid(u[pointer])
     term_2 = network.g*sum
 
     term_3 = network.A * network.get_I(t)[neuron_id]
@@ -65,33 +66,13 @@ def system_of_dsdt_eqns(conditions):
 # u, t, s
 def simulate_network(conditions, t):
     dudt_eqns = system_of_dudt_eqns(conditions, t)
-    dudt_eqns = np.ndarray.tolist(dudt_eqns)
     dsdt_eqns = system_of_dsdt_eqns(conditions)
  
+    dudt_eqns = np.ndarray.tolist(dudt_eqns)
+
     dsdt_as_vector = []
     for row in range(len(dsdt_eqns)):
         for element in dsdt_eqns[row]:
             dsdt_as_vector.append(element)
     state = dudt_eqns + dsdt_as_vector
     return state
-
-def find_fixed_points_of_2D_system(s):
-    if (s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
-        u_inits = [[-3, -3], [0, 0], [3, 3]]
-    else:
-        u_inits = [[-3, 3], [0, 0], [3, -3]]
-    fixed_points = []
-    for u_init in u_inits:
-        fixed_point = optimize.newton(system_of_dudt_eqns, u_init, maxiter=2000, args=(network.s, ))
-        fixed_points.append(fixed_point)
-    return fixed_points
-
-def test_instability_condition():
-    unstable = False
-    s = network.s[network.focal_neurons[0]][network.focal_neurons[1]]
-    sig = sigmoid(s)
-    if network.g == 0:
-        pass
-    elif (sig > 5/(7*network.g)) ^ (sig < -5/(7*network.g)):
-        unstable = True
-    return unstable
