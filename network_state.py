@@ -55,17 +55,30 @@ class Network:
         s = np.array(s, dtype=np.float64)
         return s
 
+    # TODO: Make this function not gross
     def get_I(self, t):
+        period_time = self._num_stim_vectors*self._exposure_time
         if t<0:
             print("t<0!")
             exit(1)
-        elif t<self._num_stim_vectors:
-            return self._possible_stimulus_states[floor(t)]
-        elif t<self._exposure_time:
-            return self.get_I(t/self._num_stim_vectors)
-        else:
-            t = (t/self._exposure_time) % self._num_stim_vectors
-            return self.get_I(t)
+        elif 0 <= t < 12:
+            print(t)
+            return self._possible_stimulus_states[0]
+        elif 0 <= t < 24:
+            return self._possible_stimulus_states[1]
+        elif 0 <= t < 36:
+            return self._possible_stimulus_states[2]
+        elif 0 <= t < 48:
+            return self._possible_stimulus_states[3]
+        elif 0 <= t < 60:
+            return self._possible_stimulus_states[4]
+        elif 0 <= t < 72:
+            return self._possible_stimulus_states[5]
+        elif t == 72:
+            return self._possible_stimulus_states[0]
+        elif t > 72:
+            return self.get_I(t-72)
+
 
 def break_down_init_cons(init_cons):
     split = np.array_split(init_cons, network.number_of_neurons+1)
