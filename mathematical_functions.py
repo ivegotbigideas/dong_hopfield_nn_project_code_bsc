@@ -62,7 +62,7 @@ def system_of_dsdt_eqns(conditions):
 def simulate_network(conditions, t):
     dudt_eqns = system_of_dudt_eqns(conditions, t)
     dsdt_eqns = system_of_dsdt_eqns(conditions)
-     
+    
     dudt_eqns = np.ndarray.tolist(dudt_eqns)
 
     dsdt_as_vector = []
