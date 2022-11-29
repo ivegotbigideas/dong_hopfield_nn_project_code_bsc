@@ -4,9 +4,9 @@ from mathematical_functions import simulate_network
 import numpy as np
 import matplotlib.pyplot as plt
 
-u_values = [0]*network.number_of_neurons
-sij_values = [0]*(network.number_of_neurons**2)
-init_con = u_values + sij_values
+init_u_values = [0]*network.number_of_neurons
+init_sij_values = [0]*(network.number_of_neurons**2)
+init_con = init_u_values + init_sij_values
 t = np.linspace(0, 8*network.B[0][1], 200)
 sol = odeint(simulate_network, init_con, t)
 
