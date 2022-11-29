@@ -48,13 +48,13 @@ def system_of_dsdt_eqns(conditions):
     dsdt_results = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
-        ds_dt_row = []
+        dsdt_row = []
         for neuron_id_2 in all_neuron_ids:
             if neuron_id_1 != neuron_id_2:
-                ds_dt_row.append(dsdt(conditions, neuron_id_1, neuron_id_2))
+                dsdt_row.append(dsdt(conditions, neuron_id_1, neuron_id_2))
             else:
-                ds_dt_row.append(0.0)
-        dsdt_results.append(ds_dt_row)
+                dsdt_row.append(0.0)
+        dsdt_results.append(dsdt_row)
     return np.array(dsdt_results)
 
 # u, t, s
