@@ -41,24 +41,3 @@ def system_of_dsdt_eqns(s, u):
             if neuron_id_1 != neuron_id_2:
                 ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
     return np.array(ds_dt_equations)
-
-def find_fixed_points_of_2D_system(s):
-    if (s[network.focal_neurons[0]][network.focal_neurons[1]] >= 0 and network.g>=0) or (s[network.focal_neurons[0]][network.focal_neurons[1]] < 0 and network.g < 0):
-        u_inits = [[-3, -3], [0, 0], [3, 3]]
-    else:
-        u_inits = [[-3, 3], [0, 0], [3, -3]]
-    fixed_points = []
-    for u_init in u_inits:
-        fixed_point = optimize.newton(system_of_dudt_eqns, u_init, maxiter=2000, args=(network.s, ))
-        fixed_points.append(fixed_point)
-    return fixed_points
-
-def test_instability_condition():
-    unstable = False
-    s = network.s[network.focal_neurons[0]][network.focal_neurons[1]]
-    sig = sigmoid(s)
-    if network.g == 0:
-        pass
-    elif (sig > 5/(7*network.g)) ^ (sig < -5/(7*network.g)):
-        unstable = True
-    return unstable
