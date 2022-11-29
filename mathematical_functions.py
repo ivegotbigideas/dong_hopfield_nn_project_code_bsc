@@ -30,7 +30,6 @@ def dudt(conditions, t, neuron_id):
 # s, u, neuron_id_1, neuron_id_2
 def dsdt(conditions, neuron_id_1, neuron_id_2):
     u, s = break_down_init_cons(conditions)
-    
     term_1 = -s[neuron_id_1][neuron_id_2]
     term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
     derivative = (1/network.B[neuron_id_1][neuron_id_2])*(term_1 + term_2)
@@ -38,15 +37,15 @@ def dsdt(conditions, neuron_id_1, neuron_id_2):
 
 # u, t, s
 def system_of_dudt_eqns(conditions, t):
-    du_dt_equations = []
+    dudt_results = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
-        du_dt_equations.append(dudt(conditions, t, neuron_id_1))
-    return np.array(du_dt_equations)
+        dudt_results.append(dudt(conditions, t, neuron_id_1))
+    return np.array(dudt_results)
 
 # s, u
 def system_of_dsdt_eqns(conditions):    
-    ds_dt_equations = []
+    dsdt_results = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
         ds_dt_row = []
@@ -55,19 +54,21 @@ def system_of_dsdt_eqns(conditions):
                 ds_dt_row.append(dsdt(conditions, neuron_id_1, neuron_id_2))
             else:
                 ds_dt_row.append(0.0)
-        ds_dt_equations.append(ds_dt_row)
-    return np.array(ds_dt_equations)
+        dsdt_results.append(ds_dt_row)
+    return np.array(dsdt_results)
 
 # u, t, s
 def simulate_network(conditions, t):
-    dudt_eqns = system_of_dudt_eqns(conditions, t)
-    dsdt_eqns = system_of_dsdt_eqns(conditions)
+    dudt_results = system_of_dudt_eqns(conditions, t)
+    dsdt_results = system_of_dsdt_eqns(conditions)
     
-    dudt_eqns = np.ndarray.tolist(dudt_eqns)
+    # convert dudt eqns to list
+    dudt_results = np.ndarray.tolist(dudt_results)
 
+    # convert dsdt eqns to list
     dsdt_as_vector = []
-    for row in range(len(dsdt_eqns)):
-        for element in dsdt_eqns[row]:
+    for row in range(len(dsdt_results)):
+        for element in dsdt_results[row]:
             dsdt_as_vector.append(element)
-    state = dudt_eqns + dsdt_as_vector
+    state = dudt_results + dsdt_as_vector
     return state
