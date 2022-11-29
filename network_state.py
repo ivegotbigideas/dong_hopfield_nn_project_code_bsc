@@ -61,15 +61,15 @@ class Network:
             exit(1)
         elif 0 <= t < 12:
             return self._possible_stimulus_states[0]
-        elif 0 <= t < 24:
+        elif 12 <= t < 24:
             return self._possible_stimulus_states[1]
-        elif 0 <= t < 36:
+        elif 24 <= t < 36:
             return self._possible_stimulus_states[2]
-        elif 0 <= t < 48:
+        elif 36 <= t < 48:
             return self._possible_stimulus_states[3]
-        elif 0 <= t < 60:
+        elif 48 <= t < 60:
             return self._possible_stimulus_states[4]
-        elif 0 <= t < 72:
+        elif 60 <= t < 72:
             return self._possible_stimulus_states[5]
         elif t == 72:
             return self._possible_stimulus_states[0]
