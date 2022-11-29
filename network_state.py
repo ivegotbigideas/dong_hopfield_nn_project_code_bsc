@@ -17,7 +17,6 @@ class Network:
         # external stimulus
         self._num_stim_vectors = 6
         self._possible_stimulus_states = self._generate_possible_stimulus_states()
-        self._exposure_time = 1.5
         #self.I = self._possible_stimulus_states[0]
 
         # equation constants
@@ -57,7 +56,6 @@ class Network:
 
     # TODO: Make this function not gross
     def get_I(self, t):
-        period_time = self._num_stim_vectors*self._exposure_time
         if t<0:
             print("t<0!")
             exit(1)
