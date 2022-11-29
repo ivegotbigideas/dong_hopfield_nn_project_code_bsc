@@ -13,4 +13,5 @@ sol = odeint(simulate_network, init_con, t)
 for index in range(network.number_of_neurons, network.number_of_neurons*2):
     plt.plot(t, sol[:,index])
 
+plt.grid()
 plt.show()
