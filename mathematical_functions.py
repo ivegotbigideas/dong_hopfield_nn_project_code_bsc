@@ -46,10 +46,9 @@ def system_of_dudt_eqns(conditions, t):
 # s, u
 def system_of_dsdt_eqns(conditions):    
     dsdt_results = []
-    all_neuron_ids = range(network.number_of_neurons)
-    for neuron_id_1 in all_neuron_ids:
+    for neuron_id_1 in range(network.number_of_neurons):
         dsdt_row = []
-        for neuron_id_2 in all_neuron_ids:
+        for neuron_id_2 in range(network.number_of_neurons):
             if neuron_id_1 != neuron_id_2:
                 dsdt_row.append(dsdt(conditions, neuron_id_1, neuron_id_2))
             else:
