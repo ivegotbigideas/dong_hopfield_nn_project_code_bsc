@@ -32,7 +32,7 @@ def dsdt(conditions, neuron_id_1, neuron_id_2):
     u, s = break_down_init_cons(conditions)
     term_1 = -s[neuron_id_1][neuron_id_2]
     term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
-    derivative = (1/network.B[neuron_id_1][neuron_id_2])*(term_1 + term_2)
+    derivative = 1/network.B[neuron_id_1][neuron_id_2] * (term_1 + term_2)
     return derivative
 
 # u, t, s
