@@ -8,5 +8,8 @@ for i in range(network.number_of_neurons**2):
     sij_values.append(i)
 init_con = u_values + sij_values
 u, s = break_down_init_cons(init_con)
+
+sp.pprint(u)
+print("\n")
 sp.pprint(s)
 
