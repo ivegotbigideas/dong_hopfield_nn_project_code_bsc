@@ -62,13 +62,13 @@ def simulate_network(conditions, t):
     dudt_results = system_of_dudt_eqns(conditions, t)
     dsdt_results = system_of_dsdt_eqns(conditions)
     
-    # convert dudt eqns to list
-    dudt_results = np.ndarray.tolist(dudt_results)
+    # put dudt results in list
+    dudt_results_as_vector = np.ndarray.tolist(dudt_results)
 
-    # convert dsdt eqns to list
-    dsdt_as_vector = []
+    # put dsdt results in list
+    dsdt_results_as_vector = []
     for row in range(len(dsdt_results)):
         for element in dsdt_results[row]:
-            dsdt_as_vector.append(element)
-    state = dudt_results + dsdt_as_vector
+            dsdt_results_as_vector.append(element)
+    state = dudt_results_as_vector + dsdt_results_as_vector
     return state
