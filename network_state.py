@@ -22,14 +22,14 @@ class Network:
         # equation constants
         self.g = 5
         self.a = [1]*self.number_of_neurons
-        self.A = 7
+        self.A = 100
         self.H = 1
         self.B = self._generate_B_matrix()
 
     def _generate_B_matrix(self):
         B = []
         for neuron_id in range(self.number_of_neurons):
-            row = [30]*self.number_of_neurons
+            row = [200]*self.number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
@@ -60,19 +60,26 @@ class Network:
             print("t<0!")
             exit(1)
         elif 0 <= t < 12:
-            return self._possible_stimulus_states[0]
+            #return self._possible_stimulus_states[0]
+            return [1, -1, 1, 1, -1, -1, 1, -1, 1, -1]
         elif 12 <= t < 24:
-            return self._possible_stimulus_states[1]
+            #return self._possible_stimulus_states[1]
+            return [1, -1, 1, -1, 1, 1, -1, 1, 1, 1]
         elif 24 <= t < 36:
-            return self._possible_stimulus_states[2]
+            #return self._possible_stimulus_states[2]
+            return [-1, 1, 1, 1, 1, 1, -1, 1, -1, -1]
         elif 36 <= t < 48:
-            return self._possible_stimulus_states[3]
+            #return self._possible_stimulus_states[3]
+            return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
         elif 48 <= t < 60:
-            return self._possible_stimulus_states[4]
+            #return self._possible_stimulus_states[4]
+            return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
         elif 60 <= t < 72:
-            return self._possible_stimulus_states[5]
+            #return self._possible_stimulus_states[5]
+            return [1, 1, 1, 1, -1, 1, -1, 1, -1, -1]
         elif t == 72:
-            return self._possible_stimulus_states[0]
+            #return self._possible_stimulus_states[0]
+            return [-1, -1, -1, -1, 1, -1, -1, -1, -1, -1]
         elif t > 72:
             return self.get_I(t-72)
 
