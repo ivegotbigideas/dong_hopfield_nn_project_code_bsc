@@ -1,6 +1,6 @@
 % network information
 global number_of_neurons;
-number_of_neurons = 2;
+number_of_neurons = 10;
 global num_stim_vectors;
 num_stim_vectors = 6;
 
@@ -14,13 +14,10 @@ s_init = zeros(1, number_of_neurons^2);
 y0 = [u_init, s_init];
 
 % running of the function
-% t_span = [0,240];
-% func = @simulate;
-% [t, y] = ode45(func, t_span, y0);
-% plot(t, y(:,11:110));
-
-% testing
-disp(simulate(67, [0.4, 0.1, 0, 0.3, 0.3, 0]))
+t_span = [0,240];
+func = @simulate;
+[t, y] = ode45(func, t_span, y0)
+plot(t, y(:,11:110))
 
 % network state functions
 function I = get_I(t)
