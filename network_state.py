@@ -29,7 +29,7 @@ class Network:
     def _generate_B_matrix(self):
         B = []
         for neuron_id in range(self.number_of_neurons):
-            row = [10]*self.number_of_neurons
+            row = [30]*self.number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
