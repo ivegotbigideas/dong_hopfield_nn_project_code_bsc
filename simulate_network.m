@@ -16,7 +16,7 @@ y0 = [u_init, s_init];
 % running of the function
 t_span = [0,240];
 func = @simulate;
-[t, y] = ode45(func, t_span, y0)
+[t, y] = ode45(func, t_span, y0);
 plot(t, y(:,11:110))
 
 % network state functions
