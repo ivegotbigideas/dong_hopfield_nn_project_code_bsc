@@ -35,8 +35,8 @@ def prepare_plotting_data():
 
 # plotting functions
 def update_plot(*args):
-    network.A = A_constant_slider.val
-    network.I[network.focal_neurons[0]] = I0_slider.val
+    network.g = g_constant_slider.val
+    network.s[network.focal_neurons[0]][network.focal_neurons[0]] = S00_slider.val
     network.a[network.focal_neurons[0]] = a0_slider.val
 
     derivatives, intercept = prepare_plotting_data()
@@ -50,13 +50,13 @@ u = np.linspace(-6,6,5000)
 derivatives, intercept = prepare_plotting_data()
 
 # create sliders
-A_constant_slider = Slider(plt.axes([0.25, 0.025, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=network.A, valstep=0.05)
-I0_slider = Slider(plt.axes([0.25, 0.055, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=network.I[network.focal_neurons[0]], valstep=0.01)
+g_constant_slider = Slider(plt.axes([0.25, 0.025, 0.65, 0.03]), 'g constant slider', valmin=-10, valmax=10, valinit=network.g, valstep=0.05)
+S00_slider = Slider(plt.axes([0.25, 0.055, 0.65, 0.03]), '$S_{%s}$ slider' % "00", valmin=-15, valmax=15, valinit=network.s[network.focal_neurons[0]][network.focal_neurons[0]], valstep=0.01)
 a0_slider = Slider(plt.axes([0.25, 0.085, 0.65, 0.03]), f'$a_{0}$ slider', valmin=1, valmax=3, valinit=network.a[network.focal_neurons[0]], valstep=0.01)
 
 # add slider behaviour
-A_constant_slider.on_changed(update_plot)
-I0_slider.on_changed(update_plot)
+g_constant_slider.on_changed(update_plot)
+S00_slider.on_changed(update_plot)
 a0_slider.on_changed(update_plot)
 
 # plot data
