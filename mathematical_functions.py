@@ -25,19 +25,3 @@ def dsdt(s, u, neuron_id_1, neuron_id_2):
     term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
     derivative = (1/network.B[neuron_id_1][neuron_id_2])*(term_1 + term_2)
     return derivative
-
-def system_of_dudt_eqns(u, s):
-    du_dt_equations = []
-    all_neuron_ids = range(network.number_of_neurons)
-    for neuron_id_1 in all_neuron_ids:
-        du_dt_equations.append(dudt(u, s, neuron_id_1))
-    return np.array(du_dt_equations)
-
-def system_of_dsdt_eqns(s, u):
-    ds_dt_equations = []
-    all_neuron_ids = range(network.number_of_neurons)
-    for neuron_id_1 in all_neuron_ids:
-        for neuron_id_2 in all_neuron_ids:
-            if neuron_id_1 != neuron_id_2:
-                ds_dt_equations.append(dsdt(s, u, neuron_id_1, neuron_id_2))
-    return np.array(ds_dt_equations)
