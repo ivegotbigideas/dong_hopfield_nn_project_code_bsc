@@ -30,8 +30,7 @@ def prepare_plotting_data():
     derivatives = []
     for u_instance in u:
         derivatives.append(dudt([u_instance], network.s, network.focal_neurons[0]))
-    slope, intercept = np.polyfit(derivatives, u, 1)
-    return derivatives, intercept
+    return derivatives
 
 # plotting functions
 def update_plot(*args):
@@ -39,15 +38,12 @@ def update_plot(*args):
     network.s[network.focal_neurons[0]][network.focal_neurons[0]] = S00_slider.val
     network.a[network.focal_neurons[0]] = a0_slider.val
 
-    derivatives, intercept = prepare_plotting_data()
+    derivatives = prepare_plotting_data()
     line[0].set_ydata(derivatives)
-    x_intercept[0].set_xdata(intercept)
-    left_arrow[0].set_xdata(intercept - 0.5)
-    right_arrow[0].set_xdata(intercept + 0.5)
 
 # prepare data
 u = np.linspace(-6,6,5000)
-derivatives, intercept = prepare_plotting_data()
+derivatives = prepare_plotting_data()
 
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.025, 0.65, 0.03]), 'g constant slider', valmin=-10, valmax=10, valinit=network.g, valstep=0.05)
@@ -61,9 +57,6 @@ a0_slider.on_changed(update_plot)
 
 # plot data
 line = ax.plot(u, derivatives, zorder=10)
-x_intercept = ax.plot(intercept, 0, "red", marker = "x", markersize = 7.0, zorder=10)
-left_arrow = ax.plot(intercept - 0.5, 0, "black", marker = ">", markersize = 7.0, zorder=10)
-right_arrow = ax.plot(intercept + 0.5, 0, "black", marker = "<", markersize = 7.0, zorder=10)
 
 # display
 plt.show()
