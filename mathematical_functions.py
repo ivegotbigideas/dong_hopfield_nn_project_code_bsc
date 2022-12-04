@@ -7,6 +7,7 @@ def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
 def dudt(u, s, neuron_id):
+    u = [u] # needed for 1D finding of fixed point
     term_1 = -u[neuron_id]
 
     sum = 0
@@ -20,8 +21,10 @@ def dudt(u, s, neuron_id):
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
 
-def dsdt(s, u, neuron_id_1, neuron_id_2):
-    term_1 = -s[neuron_id_1][neuron_id_2]
-    term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
-    derivative = (1/network.B[neuron_id_1][neuron_id_2])*(term_1 + term_2)
-    return derivative
+def find_fixed_points():
+    u_inits = [-3, 0, 3]
+    fixed_points = []
+    for u_init in u_inits:
+        fixed_point = optimize.newton(dudt, u_init, args=(network.s, 0), maxiter=2000)
+        fixed_points.append(fixed_point)
+    return fixed_points

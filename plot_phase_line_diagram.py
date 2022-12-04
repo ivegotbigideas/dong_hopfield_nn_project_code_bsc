@@ -1,5 +1,5 @@
 from matplotlib.widgets import Slider
-from mathematical_functions import dudt
+from mathematical_functions import dudt, find_fixed_points
 from network_state import network
 import matplotlib.pyplot as plt
 import numpy as np
