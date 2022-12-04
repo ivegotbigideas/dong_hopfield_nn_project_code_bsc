@@ -30,7 +30,8 @@ def prepare_plotting_data():
     derivatives = []
     for u_instance in u:
         derivatives.append(dudt([u_instance], network.s, network.focal_neurons[0]))
-    return derivatives
+    fixed_points = find_fixed_points()
+    return derivatives, fixed_points
 
 # plotting functions
 def update_plot(*args):
@@ -38,12 +39,13 @@ def update_plot(*args):
     network.s[network.focal_neurons[0]][network.focal_neurons[0]] = S00_slider.val
     network.a[network.focal_neurons[0]] = a0_slider.val
 
-    derivatives = prepare_plotting_data()
+    derivatives, fixed_points = prepare_plotting_data()
     line[0].set_ydata(derivatives)
+    fp_markers[0].set_xdata(fixed_points)
 
 # prepare data
 u = np.linspace(-6,6,5000)
-derivatives = prepare_plotting_data()
+derivatives, fixed_points = prepare_plotting_data()
 
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.025, 0.65, 0.03]), 'g constant slider', valmin=-10, valmax=10, valinit=network.g, valstep=0.05)
@@ -57,6 +59,7 @@ a0_slider.on_changed(update_plot)
 
 # plot data
 line = ax.plot(u, derivatives, zorder=10)
+fp_markers = ax.plot(fixed_points, [0,0,0], marker="x", linestyle="", color="r")
 
 # display
 plt.show()
