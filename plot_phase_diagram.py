@@ -19,8 +19,6 @@ def update_plot(*args):
     # update network values
     network.g = g_constant_slider.val
 
-    network.A = A_constant_slider.val
-
     network.s[network.focal_neurons[0]][network.focal_neurons[1]] = s_slider.val
     network.s[network.focal_neurons[1]][network.focal_neurons[0]] = s_slider.val
 
@@ -35,7 +33,7 @@ def update_plot(*args):
     fig.canvas.draw()
 
 # setup plot
-fig = plt.figure(figsize=(8,9))
+fig = plt.figure(figsize=(8,8))
 fig.tight_layout(pad=5.0)
 fig.subplots_adjust(bottom=0.3)
 ax = fig.add_subplot(1,1,1)
@@ -60,12 +58,10 @@ ax.grid()
 
 # create sliders
 g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider', valmin=-15, valmax=15, valinit=network.g, valstep=0.01)
-A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=network.A, valstep=0.05)
-s_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), '$s_{%s}$ slider' % (str(network.focal_neurons[0])+str(network.focal_neurons[1])), valmin=-5, valmax=5, valinit=network.s[network.focal_neurons[0]][network.focal_neurons[1]], valstep=0.05)
+s_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), '$s_{%s}$ slider' % (str(network.focal_neurons[0])+str(network.focal_neurons[1])), valmin=-5, valmax=5, valinit=network.s[network.focal_neurons[0]][network.focal_neurons[1]], valstep=0.05)
 
 # add slider behaviour
 g_constant_slider.on_changed(update_plot)
-A_constant_slider.on_changed(update_plot)
 s_slider.on_changed(update_plot)
 
 # display
