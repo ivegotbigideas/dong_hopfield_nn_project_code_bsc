@@ -24,9 +24,6 @@ def update_plot(*args):
     network.a[network.focal_neurons[0]] = a0_constants_slider.val
     network.a[network.focal_neurons[1]] = a1_constants_slider.val
 
-    network.I[network.focal_neurons[0]] = I0_slider.val
-    network.I[network.focal_neurons[1]] = I1_slider.val
-
     network.s[network.focal_neurons[0]][network.focal_neurons[1]] = s_slider.val
     network.s[network.focal_neurons[1]][network.focal_neurons[0]] = s_slider.val
 
@@ -41,9 +38,9 @@ def update_plot(*args):
     fig.canvas.draw()
 
 # setup plot
-fig = plt.figure(figsize=(8,6))
-fig2 = plt.figure()
+fig = plt.figure(figsize=(8,9))
 fig.tight_layout(pad=5.0)
+fig.subplots_adjust(bottom=0.4)
 ax = fig.add_subplot(1,1,1)
 
 # prepare data
@@ -69,17 +66,13 @@ g_constant_slider = Slider(plt.axes([0.25, 0.1, 0.65, 0.03]), 'g constant slider
 A_constant_slider = Slider(plt.axes([0.25, 0.15, 0.65, 0.03]), 'A constant slider', valmin=-1.5, valmax=1.5, valinit=network.A, valstep=0.05)
 a0_constants_slider = Slider(plt.axes([0.25, 0.2, 0.65, 0.03]), f'$a_{network.focal_neurons[0]}$ constant slider', valmin=0.1, valmax=1, valinit=network.a[network.focal_neurons[0]], valstep=0.01)
 a1_constants_slider = Slider(plt.axes([0.25, 0.25, 0.65, 0.03]), f'$a_{network.focal_neurons[1]}$ constant slider', valmin=0.1, valmax=1, valinit=network.a[network.focal_neurons[1]], valstep=0.01)
-I0_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), f'$I_{0}$ slider', valmin=-15, valmax=15, valinit=network.I[network.focal_neurons[0]], valstep=0.01)
-I1_slider = Slider(plt.axes([0.25, 0.35, 0.65, 0.03]), f'$I_{1}$ slider', valmin=-15, valmax=15, valinit=network.I[network.focal_neurons[1]], valstep=0.01)
-s_slider = Slider(plt.axes([0.25, 0.4, 0.65, 0.03]), '$s_{%s}$ slider' % (str(network.focal_neurons[0])+str(network.focal_neurons[1])), valmin=-5, valmax=5, valinit=network.s[network.focal_neurons[0]][network.focal_neurons[1]], valstep=0.05)
+s_slider = Slider(plt.axes([0.25, 0.3, 0.65, 0.03]), '$s_{%s}$ slider' % (str(network.focal_neurons[0])+str(network.focal_neurons[1])), valmin=-5, valmax=5, valinit=network.s[network.focal_neurons[0]][network.focal_neurons[1]], valstep=0.05)
 
 # add slider behaviour
 g_constant_slider.on_changed(update_plot)
 A_constant_slider.on_changed(update_plot)
 a0_constants_slider.on_changed(update_plot)
 a1_constants_slider.on_changed(update_plot)
-I0_slider.on_changed(update_plot)
-I1_slider.on_changed(update_plot)
 s_slider.on_changed(update_plot)
 
 # display
