@@ -2,16 +2,18 @@ from network_state import network
 import numpy as np
 import matplotlib.pyplot as plt
 
-t = np.linspace(0, 360, 100000)
+t_values = np.linspace(0, 360, 100000)
 
 I = []
-for i in t:
-    stim = network.get_I(i)[0]
+for t in t_values:
+    stim = network.get_I(t)[0]
     I.append(stim)
 
-for i in range(6):
-    plt.axvline(x = 72*i, color = 'r')
+for t in range(6):
+    plt.axvline(x = 72*t, color = 'r')
 
-plt.plot(t, I)
+plt.xlabel("$t$")
+plt.ylabel("$I_i$")
+plt.plot(t_values, I)
 plt.grid()
 plt.show()
