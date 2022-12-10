@@ -10,8 +10,9 @@ for t in t_values:
     I.append(stim)
 
 for t in range(6):
-    plt.axvline(x = 72*t, color = 'r')
+    plt.axvline(x = 72*t, color = 'r', linestyle="dashed")
 
+plt.xlim(0, 288)
 plt.xlabel("$t$")
 plt.ylabel("$I_i$")
 plt.plot(t_values, I)
