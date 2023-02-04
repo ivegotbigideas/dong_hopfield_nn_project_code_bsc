@@ -37,7 +37,7 @@ def dsdt(conditions, neuron_id_1, neuron_id_2):
     return derivative
 
 # u, t, s
-def system_of_dudt_eqns(conditions, t=None):
+def system_of_dudt_eqns(conditions, t):
     dudt_results = []
     all_neuron_ids = range(network.number_of_neurons)
     for neuron_id_1 in all_neuron_ids:
@@ -58,7 +58,7 @@ def system_of_dsdt_eqns(conditions):
     return np.array(dsdt_results)
 
 # u, t, s
-def calculate_network_state(conditions, t):
+def calculate_network_state(conditions, t=None):
     dudt_results = system_of_dudt_eqns(conditions, t)
     
     # put dudt results in list
@@ -74,5 +74,15 @@ def calculate_network_state(conditions, t):
                 dsdt_results_as_vector.append(element)
         state = dudt_results_as_vector + dsdt_results_as_vector
     else:
-        state = dudt_results_as_vector
+        state = dudt_results_as_vector + [0]*network.number_of_neurons**2
     return state
+
+def find_fixed_points(connection_strengths):
+    starting_guesses = np.random.rand(10,10)
+    fixed_points = []
+    for guess in starting_guesses:
+        guess = np.ndarray.tolist(guess)
+        conditions = guess+connection_strengths
+        fixed_point = optimize.newton(calculate_network_state, conditions)
+        fixed_points.append(fixed_point)
+    return fixed_points
