@@ -1,4 +1,5 @@
 from network_state import network, break_down_init_cons
+from scipy import optimize
 import numpy as np
 
 def sigmoid(x):
@@ -57,17 +58,21 @@ def system_of_dsdt_eqns(conditions):
     return np.array(dsdt_results)
 
 # u, t, s
-def simulate_network(conditions, t):
+def simulate_network(conditions, t, frozen_connection_weights=False):
     dudt_results = system_of_dudt_eqns(conditions, t)
-    dsdt_results = system_of_dsdt_eqns(conditions)
     
     # put dudt results in list
     dudt_results_as_vector = np.ndarray.tolist(dudt_results)
 
-    # put dsdt results in list
-    dsdt_results_as_vector = []
-    for row in range(len(dsdt_results)):
-        for element in dsdt_results[row]:
-            dsdt_results_as_vector.append(element)
-    state = dudt_results_as_vector + dsdt_results_as_vector
+    if frozen_connection_weights == False:
+        dsdt_results = system_of_dsdt_eqns(conditions)
+
+        # put dsdt results in list
+        dsdt_results_as_vector = []
+        for row in range(len(dsdt_results)):
+            for element in dsdt_results[row]:
+                dsdt_results_as_vector.append(element)
+        state = dudt_results_as_vector + dsdt_results_as_vector
+    else:
+        state = dudt_results_as_vector
     return state
