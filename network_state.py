@@ -84,8 +84,8 @@ class Network:
                 return [-1, -1, -1, -1, 1, -1, -1, -1, -1, -1]
             elif t > 72:
                 return self.get_I(t-72)
-        else:
-            return [0,0,0,0,0,0,0,0,0,0]
+        else: # a zero stimulus corresponds to the point at which connection weights are removed
+            return [0]*self.number_of_neurons
 
 
 def break_down_init_cons(init_cons):
