@@ -58,7 +58,7 @@ def system_of_dsdt_eqns(conditions):
     return np.array(dsdt_results)
 
 # u, t, s
-def simulate_network(conditions, t, frozen_connection_weights=False):
+def calculate_network_state(conditions, t, frozen_connection_weights=False):
     dudt_results = system_of_dudt_eqns(conditions, t)
     
     # put dudt results in list
