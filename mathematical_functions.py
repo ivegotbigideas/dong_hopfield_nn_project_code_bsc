@@ -37,7 +37,6 @@ def dsdt(conditions, neuron_id_1, neuron_id_2):
     return derivative
 
 # u, t, s
-def system_of_dudt_eqns(conditions, t):
 def system_of_dudt_eqns(conditions, t=None):
     dudt_results = []
     all_neuron_ids = range(network.number_of_neurons)
