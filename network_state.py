@@ -56,7 +56,7 @@ class Network:
 
     # TODO: Make this function not gross
     def get_I(self, t):
-        if t == None:
+        if t != None:
             if t<0:
                 print("t<0!")
                 exit(1)
