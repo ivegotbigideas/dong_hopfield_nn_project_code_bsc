@@ -6,7 +6,6 @@ class Network:
     def __init__(self):
         # basic network information
         self.number_of_neurons = 10
-        self.frozen_connection_weights = False
 
         # graphing info
         self.focal_neurons = [0,1] # for plotting so max length should be 2
