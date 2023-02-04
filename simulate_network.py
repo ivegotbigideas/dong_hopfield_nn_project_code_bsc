@@ -1,4 +1,4 @@
-from scipy.integrate import odeint, solve_ivp
+from scipy.integrate import odeint
 from network_state import network
 from mathematical_functions import simulate_network
 import numpy as np
