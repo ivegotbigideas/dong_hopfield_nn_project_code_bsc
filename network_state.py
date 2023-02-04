@@ -57,7 +57,7 @@ class Network:
 
     # TODO: Make this function not gross
     def get_I(self, t):
-        if self.frozen_connection_weights == False:
+        if t == None:
             if t<0:
                 print("t<0!")
                 exit(1)
@@ -84,7 +84,7 @@ class Network:
                 return [-1, -1, -1, -1, 1, -1, -1, -1, -1, -1]
             elif t > 72:
                 return self.get_I(t-72)
-        else: # a zero stimulus corresponds to the point at which connection weights are removed
+        else:
             return [0]*self.number_of_neurons
 
 
