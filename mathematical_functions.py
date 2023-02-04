@@ -65,6 +65,7 @@ def calculate_network_state(conditions, t):
     dudt_results_as_vector = np.ndarray.tolist(dudt_results)
 
     if t == None:
+    if t != None:
         dsdt_results = system_of_dsdt_eqns(conditions)
 
         # put dsdt results in list
