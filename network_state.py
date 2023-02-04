@@ -6,6 +6,7 @@ class Network:
     def __init__(self):
         # basic network information
         self.number_of_neurons = 10
+        self.frozen_connection_weights = False
 
         # graphing info
         self.focal_neurons = [0,1] # for plotting so max length should be 2
@@ -55,8 +56,8 @@ class Network:
         return s
 
     # TODO: Make this function not gross
-    def get_I(self, t, zero_stimulus=False):
-        if zero_stimulus == False:
+    def get_I(self, t):
+        if self.frozen_connection_weights == False:
             if t<0:
                 print("t<0!")
                 exit(1)
