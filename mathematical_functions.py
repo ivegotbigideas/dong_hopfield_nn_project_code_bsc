@@ -1,4 +1,4 @@
-from network_state import network, break_down_init_cons
+from network_state import network, refactor_state_vector
 from scipy import optimize
 import numpy as np
 
@@ -12,7 +12,7 @@ def sigmoid(x):
 
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
-    u, s = break_down_init_cons(conditions)
+    u, s = refactor_state_vector(conditions)
 
     term_1 = -u[neuron_id]
 
@@ -30,7 +30,7 @@ def dudt(conditions, t, neuron_id):
 
 # s, u, neuron_id_1, neuron_id_2
 def dsdt(conditions, neuron_id_1, neuron_id_2):
-    u, s = break_down_init_cons(conditions)
+    u, s = refactor_state_vector(conditions)
     term_1 = -s[neuron_id_1][neuron_id_2]
     term_2 = network.H*sigmoid(u[neuron_id_1])*sigmoid(u[neuron_id_2])
     derivative = 1/network.B[neuron_id_1][neuron_id_2] * (term_1 + term_2)

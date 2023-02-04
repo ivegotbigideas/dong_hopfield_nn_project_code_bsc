@@ -87,7 +87,7 @@ class Network:
             return [0]*self.number_of_neurons
 
 
-def break_down_init_cons(init_cons):
+def refactor_state_vector(init_cons):
     split = np.array_split(init_cons, network.number_of_neurons+1)
     u = split[0]
     s = split[1:network.number_of_neurons+1]
