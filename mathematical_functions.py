@@ -78,11 +78,11 @@ def calculate_network_state(conditions, t=None):
     return state
 
 def find_fixed_points(connection_strengths):
-    starting_guesses = np.random.rand(50,10)
+    starting_guesses = np.random.rand(10000,10)
     fixed_points = []
     for guess in starting_guesses:
         guess = np.ndarray.tolist(guess)
         conditions = guess+connection_strengths
-        fixed_point = optimize.newton(calculate_network_state, conditions)
+        fixed_point = optimize.newton(calculate_network_state, conditions, maxiter=5000)
         fixed_points.append(fixed_point[0:network.number_of_neurons-1])
     return fixed_points
