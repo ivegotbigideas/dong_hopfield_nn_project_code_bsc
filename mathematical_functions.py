@@ -87,4 +87,4 @@ def find_fixed_points(connection_strengths):
         #fixed_points.append(fixed_point[0:network.number_of_neurons-1])
         fixed_points.append(np.around(fixed_point[0:network.number_of_neurons-1], decimals=2))
     #return fixed_points
-    return set([(4, 5, 6), (7, 8, 9), (1, 2, 3)])
+    return set(tuple(row) for row in fixed_points)
