@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 s = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
 fixed_points = find_fixed_points(s)
 
-
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 ax.spines['left'].set_position('center')
