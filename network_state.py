@@ -80,7 +80,7 @@ class Network:
                 return [1, 1, 1, 1, -1, 1, -1, 1, -1, -1]
             elif t == 72:
                 #return self._possible_stimulus_states[0]
-                return [-1, -1, -1, -1, 1, -1, -1, -1, -1, -1] # should this be the same as t=0?
+                return self.get_I(0)
             elif t > 72:
                 return self.get_I(t-72)
         else:
