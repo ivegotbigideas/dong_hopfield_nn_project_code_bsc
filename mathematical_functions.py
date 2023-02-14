@@ -86,5 +86,5 @@ def find_fixed_points(connection_strengths):
         fixed_point = optimize.newton(calculate_network_state, conditions, maxiter=5000)
         #fixed_points.append(fixed_point[0:network.number_of_neurons-1])
         fixed_points.append(np.around(fixed_point[0:network.number_of_neurons-1], decimals=2))
-    #return fixed_points
-    return set(tuple(row) for row in fixed_points)
+    fixed_points = set(tuple(row) for row in fixed_points)
+    return fixed_points
