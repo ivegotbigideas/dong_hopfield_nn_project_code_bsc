@@ -78,7 +78,7 @@ def calculate_network_state(conditions, t=None):
     return state
 
 def find_fixed_points(connection_strengths):
-    starting_guesses = np.random.rand(1000,10)
+    starting_guesses = np.random.uniform(low=-500,high=500, size=(10000,10))
     fixed_points = []
     for guess in starting_guesses:
         guess = np.ndarray.tolist(guess)
