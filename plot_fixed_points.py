@@ -17,7 +17,6 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
-    print(fixed_point)
     fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="x")
 
 plt.grid()
