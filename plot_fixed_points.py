@@ -1,4 +1,4 @@
-from mathematical_functions import find_fixed_points
+from mathematical_functions import find_fixed_points, determine_stability
 from simulate_network import sol
 from network_state import network
 import numpy as np
@@ -17,8 +17,18 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
+    fixed_point = list(fixed_point)
     print(fixed_point)
-    fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="x")
+    conditions = fixed_point
+    conditions.extend(s)
+    stability = determine_stability(conditions)
+    if stability == "stable":
+        fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="x")
+    elif stability == "unstable":
+        fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="o")
+    else:
+        fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="^")
+    
 
 plt.grid()
 plt.show()

@@ -1,13 +1,14 @@
 from network_state import network, refactor_state_vector
 from scipy import optimize
 from math import pi
+from numpy.linalg import eig
 import numpy as np
 
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
 def derivative_of_sigmoid(x):
-    return 140/(100+49*pi^2*x)
+    return 140/(100+49*pi**2*x)
 
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
@@ -26,6 +27,23 @@ def dudt(conditions, t, neuron_id):
 
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
+
+def partial_deriv_dudt(conditions, neuron_id, wrt_id):
+    if neuron_id == wrt_id:
+        partial_deriv = -1/network.a[neuron_id]
+    else:
+        u, s = refactor_state_vector(conditions)
+
+        term_1 = sigmoid(network.s[neuron_id][wrt_id])*derivative_of_sigmoid(wrt_id)
+        
+        term_2 = 0
+        for pointer in range(network.number_of_neurons):
+            if pointer != neuron_id and pointer != wrt_id:
+                connection_strength=sigmoid(s[neuron_id][pointer]) # T
+                term_2 += connection_strength * sigmoid(u[pointer])
+
+        partial_deriv = network.g/network.a[neuron_id] * (term_1 + term_2)
+    return partial_deriv
 
 # s, u, neuron_id_1, neuron_id_2
 def dsdt(conditions, neuron_id_1, neuron_id_2):
@@ -87,3 +105,19 @@ def find_fixed_points(connection_strengths):
         fixed_points.append(np.around(fixed_point[0:network.number_of_neurons], decimals=2))
     fixed_points = set(tuple(row) for row in fixed_points)
     return fixed_points
+
+def determine_stability(conditions):
+    linearisation_matrix = np.zeros(shape=(network.number_of_neurons, network.number_of_neurons))
+    for row_id in range(network.number_of_neurons):
+        for col_id in range(network.number_of_neurons):
+            linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
+    
+    eigenvalues,eigenvectors = eig(linearisation_matrix)
+
+    stability = "unknown"
+    if all(np.real(eigenvalue) < 0 for eigenvalue in eigenvalues):
+        stability = "stable"
+    elif any(np.real(eigenvalue) > 0 for eigenvalue in eigenvalues):
+        stability = "unstable"
+
+    return stability
