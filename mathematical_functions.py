@@ -6,6 +6,9 @@ import numpy as np
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
+def derivative_of_sigmoid(x):
+    return 140/(100+49*pi^2*x)
+
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
     u, s = refactor_state_vector(conditions)
