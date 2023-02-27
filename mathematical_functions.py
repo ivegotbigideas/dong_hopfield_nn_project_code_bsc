@@ -1,14 +1,10 @@
 from network_state import network, refactor_state_vector
 from scipy import optimize
+from math import pi
 import numpy as np
 
 def sigmoid(x):
-    if -1 <= x <= 1:
-        return x
-    elif x < -1:
-        return -1
-    elif 1 < x:
-        return 1
+    return 2/pi*np.arctan(1.4*pi*x/2)
 
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
