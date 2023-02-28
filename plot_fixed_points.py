@@ -18,11 +18,9 @@ ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
     fixed_point = list(fixed_point)
+    fixed_point.extend(s)
 
-    conditions = fixed_point
-    conditions.extend(s)
-
-    stability = determine_stability(conditions)
+    stability = determine_stability(fixed_point)
     if stability == "stable":
         fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="x")
     elif stability == "unstable":
