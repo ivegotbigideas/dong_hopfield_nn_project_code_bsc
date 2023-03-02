@@ -97,7 +97,7 @@ def find_attractors_informally(conditions, t):
     return state
 
 def find_fixed_points(connection_strengths):
-    starting_guesses = np.random.uniform(low=-500,high=500, size=(250,network.number_of_neurons))
+    starting_guesses = np.random.uniform(low=-100,high=100, size=(250,network.number_of_neurons))
     fixed_points = []
     for guess in starting_guesses:
         guess = np.ndarray.tolist(guess)
@@ -115,7 +115,7 @@ def determine_stability(conditions):
             linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
-    print(eigenvalues)
+    
     stability = "unknown"
     if all(np.real(eigenvalue) < 0 for eigenvalue in eigenvalues):
         stability = "stable"
