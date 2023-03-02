@@ -34,15 +34,7 @@ def partial_deriv_dudt(conditions, neuron_id, wrt_id):
     else:
         u, s = refactor_state_vector(conditions)
 
-        term_1 = sigmoid(s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id])
-        
-        term_2 = 0
-        for pointer in range(network.number_of_neurons):
-            if pointer != neuron_id and pointer != wrt_id:
-                connection_strength=sigmoid(s[neuron_id][pointer]) # T
-                term_2 += connection_strength * sigmoid(u[pointer])
-
-        partial_deriv = network.g/network.a[neuron_id] * (term_1 + term_2)
+        partial_deriv = network.g/network.a[neuron_id] * (sigmoid(s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id]))
     return partial_deriv
 
 # s, u, neuron_id_1, neuron_id_2
