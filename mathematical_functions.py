@@ -8,7 +8,7 @@ def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
 def derivative_of_sigmoid(x):
-    return 140/(100+49*pi**2*x)
+    return 140/(100+49*(pi*x)**2)
 
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
@@ -34,7 +34,7 @@ def partial_deriv_dudt(conditions, neuron_id, wrt_id):
     else:
         u, s = refactor_state_vector(conditions)
 
-        term_1 = sigmoid(network.s[neuron_id][wrt_id])*derivative_of_sigmoid(wrt_id)
+        term_1 = sigmoid(s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id])
         
         term_2 = 0
         for pointer in range(network.number_of_neurons):
@@ -113,7 +113,7 @@ def determine_stability(conditions):
             linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
-
+    print(eigenvalues)
     stability = "unknown"
     if all(np.real(eigenvalue) < 0 for eigenvalue in eigenvalues):
         stability = "stable"
