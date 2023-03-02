@@ -21,7 +21,8 @@ init_con.extend(sol)
 path_to_attractor = odeint(find_attractors_informally, init_con, t)
 print(path_to_attractor[len(t)-1][0:network.number_of_neurons-1])
 for position in path_to_attractor:
-    plt.plot(position)
+    print(position)
+    plt.plot(position[0], position[1])
 
 plt.grid()
 plt.show()

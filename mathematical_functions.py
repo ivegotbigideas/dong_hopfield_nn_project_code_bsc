@@ -91,7 +91,17 @@ def calculate_network_state(conditions, t=None):
                 dsdt_results_as_vector.append(element)
         state = dudt_results_as_vector + dsdt_results_as_vector
     else:
-        state = dudt_results_as_vector + [0]*network.number_of_neurons**2
+        state = dudt_results_as_vector + [0]*network.number_of_neurons**2 # the second term indicates no change in connection weights
+    return state
+
+def find_attractors_informally(conditions, t):
+    t = None
+    dudt_results = system_of_dudt_eqns(conditions, t)
+    
+    # put dudt results in list
+    dudt_results_as_vector = np.ndarray.tolist(dudt_results)
+
+    state = dudt_results_as_vector + [0]*network.number_of_neurons**2 # the second term indicates no change in connection weights
     return state
 
 def find_fixed_points(connection_strengths):
