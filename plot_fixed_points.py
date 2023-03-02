@@ -29,6 +29,6 @@ for fixed_point in fixed_points:
     else:
         fp_plot = plt.scatter(fixed_point[0],fixed_point[1], marker="^")
     
-
+ax.set_aspect('equal', adjustable='box')
 plt.grid()
 plt.show()
