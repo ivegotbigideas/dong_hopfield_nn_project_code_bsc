@@ -17,6 +17,7 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
+    print(fixed_point)
     fixed_point = list(fixed_point)
     fixed_point.extend(s)
 
