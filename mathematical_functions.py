@@ -115,6 +115,8 @@ def determine_stability(conditions):
             linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
+    print("Eigenvalues: " + str(eigenvalues))
+    print("\n")
 
     stability = "unknown"
     if all(np.real(eigenvalue) < 0 for eigenvalue in eigenvalues):

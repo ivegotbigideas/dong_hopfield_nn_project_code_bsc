@@ -17,8 +17,8 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
-    print(fixed_point)
     fixed_point = list(fixed_point)
+    print("Fixed point: " + str(fixed_point))
     fixed_point.extend(s)
 
     stability = determine_stability(fixed_point)
