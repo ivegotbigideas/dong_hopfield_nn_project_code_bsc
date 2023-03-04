@@ -11,7 +11,6 @@ class Network:
         self.focal_neurons = [0,1] # for plotting so max length should be 2
 
         # network state
-        self.u = [0]*self.number_of_neurons
         self.s = self._generate_s_matrix()
 
         # external stimulus
