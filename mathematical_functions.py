@@ -97,7 +97,7 @@ def find_attractors_informally(conditions, t):
     return state
 
 def find_fixed_points(connection_strengths):
-    starting_guesses = np.random.uniform(low=-10,high=10, size=(250,network.number_of_neurons))
+    starting_guesses = np.random.uniform(low=-5,high=5, size=(5000,network.number_of_neurons))
     fixed_points = []
     for guess in starting_guesses:
         guess = np.ndarray.tolist(guess)
