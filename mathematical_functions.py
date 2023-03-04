@@ -109,11 +109,15 @@ def find_fixed_points(connection_strengths):
     fixed_points = set(tuple(row) for row in fixed_points)
     return fixed_points
 
-def determine_stability(conditions):
+def get_linearisation_matrix(conditions):
     linearisation_matrix = np.zeros(shape=(network.number_of_neurons, network.number_of_neurons))
     for row_id in range(network.number_of_neurons):
         for col_id in range(network.number_of_neurons):
             linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
+    return linearisation_matrix
+
+def determine_stability(conditions):
+    linearisation_matrix = get_linearisation_matrix(conditions)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
     print("Eigenvalues: " + str(eigenvalues))
