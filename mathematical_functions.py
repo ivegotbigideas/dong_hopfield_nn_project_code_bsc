@@ -98,9 +98,10 @@ def find_attractors_informally(conditions, t):
 
 def find_fixed_points(connection_strengths):
     starting_guesses = np.random.uniform(low=-5,high=5, size=(5000,network.number_of_neurons))
+    starting_guesses = starting_guesses.tolist()
+    starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
     for guess in starting_guesses:
-        guess = np.ndarray.tolist(guess)
         conditions = guess+connection_strengths
         fixed_point = optimize.newton(calculate_network_state, conditions, maxiter=5000)
         #fixed_points.append(fixed_point[0:network.number_of_neurons])
