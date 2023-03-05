@@ -95,13 +95,22 @@ def find_attractors_informally(conditions, t):
     return state
 
 def find_fixed_points():
-    starting_guesses = np.random.uniform(low=-5,high=5, size=(1000,network.number_of_neurons))
+    starting_guesses = np.random.uniform(low=-5,high=5, size=(500,network.number_of_neurons))
     starting_guesses = starting_guesses.tolist()
     starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
     for guess in starting_guesses:
         fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1')
-        fixed_points.append(fixed_point.x)
+
+        add_new_fixed_point = True
+        for existing_fp in fixed_points:
+            if np.linalg.norm(existing_fp - fixed_point.x) < 1:
+                add_new_fixed_point = False
+
+        if add_new_fixed_point:
+            fixed_points.append(fixed_point.x)
+
+    print("Number of fixed points: " + str(len(fixed_points)) + "\n")
     fixed_points = set(tuple(row) for row in fixed_points)
     return fixed_points
 
