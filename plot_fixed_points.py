@@ -4,8 +4,12 @@ from network_state import network
 import numpy as np
 import matplotlib.pyplot as plt
 
-s = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
-fixed_points = find_fixed_points(s)
+s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
+for i in range(network.number_of_neurons):
+    for j in range(network.number_of_neurons):
+        network.s[i][j] = s_values[network.number_of_neurons*i+j]
+
+fixed_points = find_fixed_points()
 
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
@@ -19,7 +23,6 @@ ax.yaxis.set_ticks_position('left')
 for fixed_point in fixed_points:
     fixed_point = list(fixed_point)
     print("Fixed point: " + str(fixed_point))
-    fixed_point.extend(s)
 
     stability = determine_stability(fixed_point)
     if stability == "stable":

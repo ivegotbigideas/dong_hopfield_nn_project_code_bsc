@@ -28,13 +28,11 @@ def dudt(conditions, t, neuron_id):
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
 
-def partial_deriv_dudt(conditions, neuron_id, wrt_id):
+def partial_deriv_dudt(u, neuron_id, wrt_id):
     if neuron_id == wrt_id:
         partial_deriv = -1/network.a[neuron_id]
     else:
-        u, s = refactor_state_vector(conditions)
-
-        partial_deriv = network.g/network.a[neuron_id] * (sigmoid(s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id]))
+        partial_deriv = network.g/network.a[neuron_id] * (sigmoid(network.s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id]))
     return partial_deriv
 
 # s, u, neuron_id_1, neuron_id_2
@@ -96,28 +94,27 @@ def find_attractors_informally(conditions, t):
     state = dudt_results_as_vector + [0]*network.number_of_neurons**2 # the second term indicates no change in connection weights
     return state
 
-def find_fixed_points(connection_strengths):
-    starting_guesses = np.random.uniform(low=-10,high=10, size=(7000,network.number_of_neurons))
+def find_fixed_points():
+    starting_guesses = np.random.uniform(low=-10,high=10, size=(500,network.number_of_neurons))
     starting_guesses = starting_guesses.tolist()
     starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
     for guess in starting_guesses:
-        conditions = guess+connection_strengths
-        fixed_point = optimize.newton(calculate_network_state, conditions, maxiter=5000)
-        #fixed_points.append(fixed_point[0:network.number_of_neurons])
-        fixed_points.append(np.around(fixed_point[0:network.number_of_neurons], decimals=2))
+        fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1')
+        fixed_points.append(fixed_point.x)
+        #fixed_points.append(np.around(fixed_point.x, decimals=2))
     fixed_points = set(tuple(row) for row in fixed_points)
     return fixed_points
 
-def get_linearisation_matrix(conditions):
+def get_linearisation_matrix(fixed_point):
     linearisation_matrix = np.zeros(shape=(network.number_of_neurons, network.number_of_neurons))
     for row_id in range(network.number_of_neurons):
         for col_id in range(network.number_of_neurons):
-            linearisation_matrix[row_id][col_id] = partial_deriv_dudt(conditions, col_id, row_id)
+            linearisation_matrix[row_id][col_id] = partial_deriv_dudt(fixed_point, col_id, row_id)
     return linearisation_matrix
 
-def determine_stability(conditions):
-    linearisation_matrix = get_linearisation_matrix(conditions)
+def determine_stability(fixed_point):
+    linearisation_matrix = get_linearisation_matrix(fixed_point)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
     print("Eigenvalues: " + str(eigenvalues))
@@ -130,3 +127,11 @@ def determine_stability(conditions):
         stability = "unstable"
 
     return stability
+
+def find_fixed_point_proxy(guess):
+    guess = guess.tolist()
+    for row in network.s:
+        for val in row:
+            guess.append(val)
+    
+    return calculate_network_state(guess)[0:network.number_of_neurons]
