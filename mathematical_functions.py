@@ -95,7 +95,7 @@ def find_attractors_informally(conditions, t):
     return state
 
 def find_fixed_points():
-    starting_guesses = np.random.uniform(low=-10,high=10, size=(500,network.number_of_neurons))
+    starting_guesses = np.random.uniform(low=-5,high=5, size=(1000,network.number_of_neurons))
     starting_guesses = starting_guesses.tolist()
     starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
