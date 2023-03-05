@@ -19,7 +19,7 @@ class Network:
         #self.I = self._possible_stimulus_states[0]
 
         # equation constants
-        self.g = 10
+        self.g = 5
         self.a = [1]*self.number_of_neurons
         self.A = 100
         self.H = 1
