@@ -22,7 +22,6 @@ ax.yaxis.set_ticks_position('left')
 
 for fixed_point in fixed_points:
     fixed_point = list(fixed_point)
-    print("Fixed point: " + str(fixed_point))
 
     stability = determine_stability(fixed_point)
     if stability == "stable":

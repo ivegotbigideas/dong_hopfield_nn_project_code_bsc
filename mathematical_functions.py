@@ -102,7 +102,6 @@ def find_fixed_points():
     for guess in starting_guesses:
         fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1')
         fixed_points.append(fixed_point.x)
-        #fixed_points.append(np.around(fixed_point.x, decimals=2))
     fixed_points = set(tuple(row) for row in fixed_points)
     return fixed_points
 
@@ -114,18 +113,20 @@ def get_linearisation_matrix(fixed_point):
     return linearisation_matrix
 
 def determine_stability(fixed_point):
+    print("Fixed point: " + str(fixed_point))
+
     linearisation_matrix = get_linearisation_matrix(fixed_point)
     
     eigenvalues,eigenvectors = eig(linearisation_matrix)
     print("Eigenvalues: " + str(eigenvalues))
-    print("\n")
 
     stability = "unknown"
     if all(np.real(eigenvalue) < 0 for eigenvalue in eigenvalues):
         stability = "stable"
     elif any(np.real(eigenvalue) > 0 for eigenvalue in eigenvalues):
         stability = "unstable"
-
+    print("Stability: " + stability)
+    print("\n")
     return stability
 
 def find_fixed_point_proxy(guess):
