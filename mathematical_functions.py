@@ -107,6 +107,9 @@ def find_fixed_points():
             if np.linalg.norm(existing_fp - fixed_point.x) < 1:
                 add_new_fixed_point = False
 
+        if np.linalg.norm(evaluate_fixed_point(fixed_point.x)) > 1e-8:
+            add_new_fixed_point = False
+
         if add_new_fixed_point:
             fixed_points.append(fixed_point.x)
 
@@ -123,7 +126,9 @@ def get_linearisation_matrix(fixed_point):
 
 def determine_stability(fixed_point):
     print("Fixed point: " + str(fixed_point))
-    print("Evaluation: " + str(evaluate_fixed_point(np.array(fixed_point))))
+    evaluation = evaluate_fixed_point(np.array(fixed_point))
+    print("Evaluation: " + str(evaluation))
+    print("Distance of evaluation from origin: " + str(np.linalg.norm(evaluation)))
 
     linearisation_matrix = get_linearisation_matrix(fixed_point)
     
