@@ -1,16 +1,14 @@
 from mathematical_functions import find_fixed_points, determine_stability
-from simulate_network import sol
-from network_state import network
+from network_state import network, refactor_s_vector
 import numpy as np
 import matplotlib.pyplot as plt
+"""
+from simulate_network import sol
+final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
+network.s = refactor_s_vector(final_s_values)
+"""
 
-s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
-
-# Break down solution from simulation into s matrix
-for i in range(network.number_of_neurons):
-    for j in range(network.number_of_neurons):
-        network.s[i][j] = s_values[network.number_of_neurons*i+j]
-
+network.s = np.loadtxt("default_s_values.txt")
 fixed_points = find_fixed_points()
 
 fig = plt.figure()

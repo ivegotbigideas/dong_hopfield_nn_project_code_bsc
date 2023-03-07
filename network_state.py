@@ -84,11 +84,14 @@ class Network:
         else:
             return [0]*self.number_of_neurons
 
-
 def refactor_state_vector(init_cons):
     split = np.array_split(init_cons, network.number_of_neurons+1)
     u = split[0]
     s = split[1:network.number_of_neurons+1]
     return u, s
+
+def refactor_s_vector(s):
+    split = np.array_split(s, network.number_of_neurons)
+    return split
 
 network = Network()
