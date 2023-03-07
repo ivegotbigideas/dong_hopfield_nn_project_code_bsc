@@ -102,7 +102,7 @@ def find_fixed_points():
 
         add_new_fixed_point = True
         for existing_fp in fixed_points:
-            if norm_of_evaluated_point(existing_fp - fixed_point.x) < 1:
+            if (norm_of_evaluated_point(existing_fp - fixed_point.x) < 1) and (list(fixed_point.x) != [0]*network.number_of_neurons):
                 add_new_fixed_point = False
 
         if norm_of_evaluated_point(fixed_point.x) > 1e-8:
