@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
+
+# Break down solution from simulation into s matrix
 for i in range(network.number_of_neurons):
     for j in range(network.number_of_neurons):
         network.s[i][j] = s_values[network.number_of_neurons*i+j]

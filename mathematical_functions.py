@@ -4,6 +4,10 @@ from math import pi
 from numpy.linalg import eig
 import numpy as np
 
+"""
+MODELLING OF THE SYSTEM
+"""
+
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
@@ -84,6 +88,10 @@ def calculate_network_state(conditions, t=None):
         state = dudt_results_as_vector + [0]*network.number_of_neurons**2 # the second term indicates no change in connection weights
     return state
 
+"""
+FINDING OF ATTRACTORS
+"""
+
 def find_attractors_informally(conditions, t):
     t = None
     dudt_results = system_of_dudt_eqns(conditions, t)
@@ -104,10 +112,10 @@ def find_fixed_points():
 
         add_new_fixed_point = True
         for existing_fp in fixed_points:
-            if np.linalg.norm(existing_fp - fixed_point.x) < 1:
+            if norm_of_evaluated_point(existing_fp - fixed_point.x) < 1:
                 add_new_fixed_point = False
 
-        if np.linalg.norm(evaluate_fixed_point(fixed_point.x)) > 1e-8:
+        if norm_of_evaluated_point(fixed_point.x) > 1e-8:
             add_new_fixed_point = False
 
         if add_new_fixed_point:
@@ -155,4 +163,7 @@ def find_fixed_point_proxy(guess):
 def evaluate_fixed_point(fp):
     evaluation = find_fixed_point_proxy(fp)
     return evaluation
+
+def norm_of_evaluated_point(point):
+    return np.linalg.norm(evaluate_fixed_point(point))
     
