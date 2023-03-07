@@ -100,7 +100,7 @@ def find_fixed_points():
     starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
     for guess in starting_guesses:
-        fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1')
+        fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1', options={'ftol':  1e-12})
 
         add_new_fixed_point = True
         for existing_fp in fixed_points:
