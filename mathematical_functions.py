@@ -123,6 +123,7 @@ def get_linearisation_matrix(fixed_point):
 
 def determine_stability(fixed_point):
     print("Fixed point: " + str(fixed_point))
+    print("Evaluation: " + str(evaluate_fixed_point(np.array(fixed_point))))
 
     linearisation_matrix = get_linearisation_matrix(fixed_point)
     
@@ -145,3 +146,8 @@ def find_fixed_point_proxy(guess):
             guess.append(val)
     
     return calculate_network_state(guess)[0:network.number_of_neurons]
+
+def evaluate_fixed_point(fp):
+    evaluation = find_fixed_point_proxy(fp)
+    return evaluation
+    
