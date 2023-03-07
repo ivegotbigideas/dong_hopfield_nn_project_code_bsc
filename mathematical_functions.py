@@ -11,9 +11,6 @@ MODELLING OF THE SYSTEM
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
-def derivative_of_sigmoid(x):
-    return 140/(100+49*(pi*x)**2)
-
 # u, s, neuron_id
 def dudt(conditions, t, neuron_id):
     u, s = refactor_state_vector(conditions)
@@ -31,13 +28,6 @@ def dudt(conditions, t, neuron_id):
 
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
-
-def partial_deriv_dudt(u, neuron_id, wrt_id):
-    if neuron_id == wrt_id:
-        partial_deriv = -1/network.a[neuron_id]
-    else:
-        partial_deriv = network.g/network.a[neuron_id] * (sigmoid(network.s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id]))
-    return partial_deriv
 
 # s, u, neuron_id_1, neuron_id_2
 def dsdt(conditions, neuron_id_1, neuron_id_2):
@@ -166,4 +156,13 @@ def evaluate_fixed_point(fp):
 
 def norm_of_evaluated_point(point):
     return np.linalg.norm(evaluate_fixed_point(point))
+
+def derivative_of_sigmoid(x):
+    return 140/(100+49*(pi*x)**2)
     
+def partial_deriv_dudt(u, neuron_id, wrt_id):
+    if neuron_id == wrt_id:
+        partial_deriv = -1/network.a[neuron_id]
+    else:
+        partial_deriv = network.g/network.a[neuron_id] * (sigmoid(network.s[neuron_id][wrt_id])*derivative_of_sigmoid(u[wrt_id]))
+    return partial_deriv
