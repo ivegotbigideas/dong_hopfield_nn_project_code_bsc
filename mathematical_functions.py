@@ -98,7 +98,7 @@ def find_fixed_points():
     starting_guesses.append([0]*network.number_of_neurons)
     fixed_points = []
     for guess in starting_guesses:
-        fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='broyden1', options={'ftol':  1e-12})
+        fixed_point = optimize.root(find_fixed_point_proxy, guess, tol=1.48e-08, method='hybr', jac=get_linearisation_matrix)
 
         add_new_fixed_point = True
         for existing_fp in fixed_points:
@@ -119,7 +119,7 @@ def get_linearisation_matrix(fixed_point):
     linearisation_matrix = np.zeros(shape=(network.number_of_neurons, network.number_of_neurons))
     for row_id in range(network.number_of_neurons):
         for col_id in range(network.number_of_neurons):
-            linearisation_matrix[row_id][col_id] = partial_deriv_dudt(fixed_point, col_id, row_id)
+            linearisation_matrix[row_id][col_id] = partial_deriv_dudt(fixed_point, row_id, col_id)
     return linearisation_matrix
 
 def determine_stability(fixed_point):
