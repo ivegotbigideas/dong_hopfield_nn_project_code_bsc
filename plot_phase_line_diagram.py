@@ -66,7 +66,7 @@ derivatives, fixed_points = prepare_plotting_data()
 
 # plot data
 line = ax.plot(u, derivatives, zorder=10)
-fp_markers = ax.plot(fixed_points, [0,0,0], marker="x", linestyle="", color="r")
+fp_markers = ax.plot(fixed_points, [0,0,0], marker="x", linestyle="", color="r", markersize=10, zorder=11)
 
 # display
 plt.show()
