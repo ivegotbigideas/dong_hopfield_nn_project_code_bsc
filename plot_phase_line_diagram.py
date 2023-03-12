@@ -19,16 +19,18 @@ ax.spines['left'].set_position(('data', 0))
 ax.spines['bottom'].set_position(('data', 0))
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-ax.set_xlabel(r'$\frac{du_0}{dt}$', fontsize=18)
-ax.xaxis.labelpad = 17
-ax.set_ylabel('$u_0$', fontsize=15, rotation=0)
-ax.yaxis.labelpad = 17
+ax.set_xlabel(r'$\frac{du_0}{dt}$', fontsize=26)
+ax.xaxis.labelpad = 20
+ax.set_ylabel('$u_0$', fontsize=23, rotation=0)
+ax.yaxis.labelpad = 20
 ax.xaxis.set_label_position("top")
 ax.yaxis.set_label_position("right")
 plt.xlim([-6, 6])
 plt.ylim([-6, 6])
 ax.set_xticks([-6.0, -4.0, -2.0, 2.0, 4.0, 6.0])
 ax.set_yticks([-6.0, -4.0, -2.0, 2.0, 4.0, 6.0])
+plt.xticks(fontsize=17)
+plt.yticks(fontsize=17)
 
 # data preparation functions
 def prepare_plotting_data():
@@ -63,7 +65,7 @@ derivatives, fixed_points = prepare_plotting_data()
 #a0_slider.on_changed(update_plot)
 
 # plot data
-line = ax.plot(u, derivatives, zorder=10, linewidth=0.8)
+line = ax.plot(u, derivatives, zorder=10)
 fp_markers = ax.plot(fixed_points, [0,0,0], marker="x", linestyle="", color="r")
 
 # display
