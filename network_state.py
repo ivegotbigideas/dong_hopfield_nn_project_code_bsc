@@ -12,12 +12,12 @@ class Network:
         self.s = []
         for neuron_id in range(self.number_of_neurons):
             row = [1]*self.number_of_neurons
-            row[neuron_id] = 0
+            row[neuron_id] = 0.1
             self.s.append(row)
         self.s = np.array(self.s, dtype=np.float64)
 
         # equation constants
-        self.g = 1
+        self.g = 5
         self.a = [1]*self.number_of_neurons
         self.A = 1
         self.H = 1
