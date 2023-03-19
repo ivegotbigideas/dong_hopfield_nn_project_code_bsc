@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 s_values = np.linspace(-1,1,1000)
 
 # setup plot
+plt.rcParams['text.usetex'] = True
 fig = plt.figure(figsize=(8,6))
-fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
-ax.set_xlabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])))
-ax.set_ylabel("$u_{%s}$ (fixed points)" % network.focal_neurons[0])
+ax.set_xlabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])), fontsize=17)
+ax.set_ylabel("$u_{%s}$ (fixed points)" % network.focal_neurons[0], fontsize=17)
 plt.xlim([-1, 1])
 plt.ylim([-2, 2])
 
