@@ -25,7 +25,7 @@ def dudt_fp(u, s, neuron_id):
 
     sum = 0
     for pointer in range(network.number_of_neurons):
-        connection_strength=sigmoid(s[neuron_id, pointer]) # T
+        connection_strength=sigmoid(s[neuron_id][pointer]) # T
         sum += connection_strength * sigmoid(u)
     term_2 = network.g*sum
 
@@ -41,3 +41,13 @@ def find_fixed_points():
         fixed_point = optimize.newton(dudt_fp, u_init, args=(network.s, 0), maxiter=2000)
         fixed_points.append(fixed_point)
     return fixed_points
+
+def test_instability_condition():
+    unstable = False
+    s = network.s[0][0]
+    sig = sigmoid(s)
+    if network.g == 0:
+        pass
+    elif sig > 5/(7*network.g):
+        unstable = True
+    return unstable
