@@ -4,11 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # setup plot
+plt.rcParams['text.usetex'] = True
 fig = plt.figure(figsize=(8,6))
 fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
-ax.set_xlabel("$g$")
-ax.set_ylabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])))
+ax.set_xlabel("$g$", fontsize=17)
+ax.set_ylabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[1])), fontsize=17)
 
 def main(g_values, s_values):
     # prepare data
