@@ -21,14 +21,14 @@ class Network:
         # equation constants
         self.g = 5
         self.a = [1]*self.number_of_neurons
-        self.A = 100
+        self.A = 3
         self.H = 1
         self.B = self._generate_B_matrix()
 
     def _generate_B_matrix(self):
         B = []
         for neuron_id in range(self.number_of_neurons):
-            row = [200]*self.number_of_neurons
+            row = [700]*self.number_of_neurons
             row[neuron_id] = 0
             B.append(row)
         return B
