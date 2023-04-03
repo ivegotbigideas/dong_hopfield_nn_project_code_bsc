@@ -83,7 +83,7 @@ FINDING OF ATTRACTORS
 """
 
 def find_attractors_informally(conditions, t):
-    t = None
+    t = None # ensures no external stimulus is applied
     dudt_results = system_of_dudt_eqns(conditions, t)
     
     # put dudt results in list
