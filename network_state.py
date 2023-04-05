@@ -60,23 +60,23 @@ class Network:
                 print("t<0!")
                 exit(1)
             elif 0 <= t < 12:
-                #return self._possible_stimulus_states[0]
-                return [1, -1, 1, 1, -1, -1, 1, -1, 1, -1]
+                return self._possible_stimulus_states[0]
+                #return [1, -1, 1, 1, -1, -1, 1, -1, 1, -1]
             elif 12 <= t < 24:
-                #return self._possible_stimulus_states[1]
-                return [1, -1, 1, -1, 1, 1, -1, 1, 1, 1]
+                return self._possible_stimulus_states[1]
+                #return [1, -1, 1, -1, 1, 1, -1, 1, 1, 1]
             elif 24 <= t < 36:
-                #return self._possible_stimulus_states[2]
-                return [-1, 1, 1, 1, 1, 1, -1, 1, -1, -1]
+                return self._possible_stimulus_states[2]
+                #return [-1, 1, 1, 1, 1, 1, -1, 1, -1, -1]
             elif 36 <= t < 48:
-                #return self._possible_stimulus_states[3]
-                return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
+                return self._possible_stimulus_states[3]
+                #return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
             elif 48 <= t < 60:
-                #return self._possible_stimulus_states[4]
-                return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
+                return self._possible_stimulus_states[4]
+                #return [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1]
             elif 60 <= t < 72:
-                #return self._possible_stimulus_states[5]
-                return [1, 1, 1, 1, -1, 1, -1, 1, -1, -1]
+                return self._possible_stimulus_states[5]
+                #return [1, 1, 1, 1, -1, 1, -1, 1, -1, -1]
             elif t == 72:
                 return self.get_I(0)
             elif t > 72:
