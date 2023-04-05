@@ -13,7 +13,7 @@ network.s = np.loadtxt("default_s_values.txt")
 fixed_points = find_fixed_points()
 
 plt.rcParams['text.usetex'] = True
-fig = plt.figure(figsize=(7, 7), dpi=100)
+fig = plt.figure(figsize=(7, 7), dpi=200)
 ax = fig.add_subplot(1,1,1)
 plt.xlabel("$u_0$", fontsize=17)
 plt.ylabel("$u_1$", fontsize=17)
@@ -61,4 +61,5 @@ for init_con in init_cons:
     plt.plot(x,y)
 
 plt.grid()
+plt.savefig('main.png')
 plt.show()
