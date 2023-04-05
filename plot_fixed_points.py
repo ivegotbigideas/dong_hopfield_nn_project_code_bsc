@@ -1,15 +1,14 @@
 from scipy.integrate import odeint
 from mathematical_functions import find_fixed_points, determine_stability, find_attractors_informally
-from network_state import network
+from network_state import network, refactor_s_vector
 import numpy as np
 import matplotlib.pyplot as plt
-"""
-from simulate_network import sol
-final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
-network.s = refactor_s_vector(final_s_values)
-"""
 
 network.s = np.loadtxt("default_s_values.txt")
+if True: # set to false to just load default s values
+    from simulate_network import sol
+    final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
+    network.s = np.array(refactor_s_vector(final_s_values))
 fixed_points = find_fixed_points()
 
 plt.rcParams['text.usetex'] = True
@@ -35,15 +34,16 @@ for fixed_point in fixed_points:
 ax.set_aspect('equal', adjustable='box')
 
 # plot trajectories
-init_cons = [[1, -1, 1, 1, -1, -1, 1, -1, 1, -1],
-             [1, -1, 1, -1, 1, 1, -1, 1, 1, 1],
-             [-1, 1, 1, 1, 1, 1, -1, 1, -1, -1],
-             [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1],
-             [-1, 1, -1, -1, -1, 1, -1, 1, 1, -1],
-             [1, 1, 1, 1, -1, 1, -1, 1, -1, -1]
+init_cons = [network.get_I(0),
+             network.get_I(12),
+             network.get_I(24),
+             network.get_I(36),
+             network.get_I(48),
+             network.get_I(60)
             ]
 
 for init_con in init_cons:
+    print(init_con)
     init_con.extend(network.s.flatten())
     t = np.linspace(0, 8*300, 500)
     traj = odeint(find_attractors_informally, init_con, t)
@@ -61,5 +61,5 @@ for init_con in init_cons:
     plt.plot(x,y)
 
 plt.grid()
-plt.savefig('main.png')
+plt.savefig('plot.png')
 plt.show()
