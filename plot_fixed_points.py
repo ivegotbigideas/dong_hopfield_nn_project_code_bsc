@@ -60,6 +60,7 @@ for init_con in init_cons:
         y.append(point[1])
     plt.plot(x,y)
 
+plt.gca().set_aspect('equal')
 plt.grid()
 plt.savefig('plot.png')
 plt.show()
