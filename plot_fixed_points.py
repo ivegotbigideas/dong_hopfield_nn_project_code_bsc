@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 network.s = np.loadtxt("default_s_values.txt")
-if True: # set to false to just load default s values
+if False: # set to false to just load default s values
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
     network.s = np.array(refactor_s_vector(final_s_values))
@@ -42,8 +42,14 @@ init_cons = [network.get_I(0),
              network.get_I(60)
             ]
 
+# for recognisation
+init_cons = [init_cons[0]]
+for _ in range(1,4):
+    disp = np.random.uniform(low=-1, high=1, size=10)
+    init_cons.append(list(init_cons[0] + disp))
+print(init_cons)
+
 for init_con in init_cons:
-    print(init_con)
     init_con.extend(network.s.flatten())
     t = np.linspace(0, 8*300, 500)
     traj = odeint(find_attractors_informally, init_con, t)
@@ -58,7 +64,10 @@ for init_con in init_cons:
     for point in final_traj:
         x.append(point[0])
         y.append(point[1])
-    plt.plot(x,y)
+    if init_con != init_cons[0]:
+        plt.plot(x,y,color="black")
+    else:
+        plt.plot(x,y, zorder=10)
 
 plt.gca().set_aspect('equal')
 plt.grid()
