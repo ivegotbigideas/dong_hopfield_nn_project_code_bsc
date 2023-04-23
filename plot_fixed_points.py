@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 network.s = np.loadtxt("default_s_values.txt")
-if False: # set to false to just load default s values
+if True: # set to false to just load default s values
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
     network.s = np.array(refactor_s_vector(final_s_values))
@@ -43,7 +43,7 @@ init_cons = [network.get_I(0),
             ]
 
 # for recognisation
-init_cons = [init_cons[0]]
+init_cons = [init_cons[5]]
 for _ in range(1,4):
     disp = np.random.uniform(low=-1, high=1, size=10)
     init_cons.append(list(init_cons[0] + disp))
