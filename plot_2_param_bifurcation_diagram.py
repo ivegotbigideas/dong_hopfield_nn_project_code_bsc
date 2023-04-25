@@ -10,6 +10,8 @@ fig.tight_layout(pad=5.0)
 ax = fig.add_subplot(1,1,1)
 ax.set_xlabel("$g$", fontsize=17)
 ax.set_ylabel("$s_{%s}$" % (str(network.focal_neurons[0]) + str(network.focal_neurons[0])), fontsize=17)
+ax.set_xlim(-4.5, 4.5)
+ax.set_ylim(-17, 17)
 
 def main(g_values, s_values):
     # prepare data
@@ -39,6 +41,4 @@ for index in [0,1]:
         main(g_values_arr[index], s_values_arr[index])
 
 # display
-ax.set_xlim(-4.5, 4.5)
-ax.set_ylim(-17, 17)
 plt.show()
