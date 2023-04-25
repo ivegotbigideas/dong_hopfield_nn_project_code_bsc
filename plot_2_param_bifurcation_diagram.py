@@ -39,4 +39,6 @@ for index in [0,1]:
         main(g_values_arr[index], s_values_arr[index])
 
 # display
+ax.set_xlim(-4.5, 4.5)
+ax.set_ylim(-17, 17)
 plt.show()
