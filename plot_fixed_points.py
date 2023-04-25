@@ -56,7 +56,6 @@ for init_con in init_cons:
 
     final_traj = []
     for timestep in traj:
-        #print(timestep[0:2])
         final_traj.append(timestep[0:2])
 
     x = []
