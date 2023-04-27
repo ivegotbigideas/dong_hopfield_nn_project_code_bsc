@@ -54,7 +54,6 @@ class Network:
         s = np.array(s, dtype=np.float64)
         return s
 
-    # TODO: Make this function not gross
     def get_I(self, t):
         if t != None:
             if t<0:
