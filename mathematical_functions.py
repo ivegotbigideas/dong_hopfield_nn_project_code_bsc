@@ -37,7 +37,6 @@ def dsdt(conditions, neuron_id_1, neuron_id_2):
     derivative = 1/network.B[neuron_id_1][neuron_id_2] * (term_1 + term_2)
     return derivative
 
-# u, t, s
 def system_of_dudt_eqns(conditions, t):
     dudt_results = []
     all_neuron_ids = range(network.number_of_neurons)
@@ -45,7 +44,6 @@ def system_of_dudt_eqns(conditions, t):
         dudt_results.append(dudt(conditions, t, neuron_id_1))
     return np.array(dudt_results)
 
-# s, u
 def system_of_dsdt_eqns(conditions):    
     dsdt_results = []
     for neuron_id_1 in range(network.number_of_neurons):
@@ -58,7 +56,6 @@ def system_of_dsdt_eqns(conditions):
         dsdt_results.append(dsdt_row)
     return np.array(dsdt_results)
 
-# u, t, s
 def calculate_network_state(conditions, t=None):
     dudt_results = system_of_dudt_eqns(conditions, t)
     
@@ -79,7 +76,7 @@ def calculate_network_state(conditions, t=None):
     return state
 
 """
-FINDING OF ATTRACTORS
+FINDING/EVALUATING FIXED POINTS
 """
 
 def find_attractors_informally(conditions, t):
@@ -124,6 +121,7 @@ def get_linearisation_matrix(fixed_point):
             linearisation_matrix[row_id][col_id] = partial_deriv_dudt(fixed_point, row_id, col_id)
     return linearisation_matrix
 
+# determine stability of a given fixed point using linearisation matrix and print key info
 def determine_stability(fixed_point):
     print("Fixed point: " + str(fixed_point))
     evaluation = evaluate_fixed_point(np.array(fixed_point))
@@ -144,6 +142,7 @@ def determine_stability(fixed_point):
     print("\n")
     return stability
 
+# proxy function used to find fixed point without redefining system without learning/external stimulus
 def find_fixed_point_proxy(guess):
     guess = guess.tolist()
     for row in network.s:
@@ -152,16 +151,18 @@ def find_fixed_point_proxy(guess):
     
     return calculate_network_state(guess)[0:network.number_of_neurons]
 
+# evaluates the system at a fixed point
 def evaluate_fixed_point(fp):
     evaluation = find_fixed_point_proxy(fp)
     return evaluation
 
+# find norm of fixed point
 def norm_of_evaluated_point(point):
     return np.linalg.norm(evaluate_fixed_point(point))
 
 def derivative_of_sigmoid(x):
     return 140/(100+49*(pi*x)**2)
-    
+
 def partial_deriv_dudt(u, neuron_id, wrt_id):
     if neuron_id == wrt_id:
         partial_deriv = -1/network.a[neuron_id]

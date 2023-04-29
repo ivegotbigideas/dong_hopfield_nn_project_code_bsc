@@ -27,11 +27,12 @@ class Network:
     def _generate_B_matrix(self):
         B = []
         for neuron_id in range(self.number_of_neurons):
-            row = [200]*self.number_of_neurons
+            row = [200]*self.number_of_neurons # set B value here
             row[neuron_id] = 0
             B.append(row)
         return B
 
+    # randomly generate vectors to memorise
     def _generate_possible_stimulus_states(self):
         possible_stimulus_states = []
         for _ in range(self._num_stim_vectors):
@@ -53,6 +54,7 @@ class Network:
         s = np.array(s, dtype=np.float64)
         return s
 
+    # external stimulus
     def get_I(self, t, use_random=False):
         if t != None:
             if t<0:
@@ -89,14 +91,17 @@ class Network:
         else:
             return [0]*self.number_of_neurons
 
+# split vector containing network state information
 def refactor_state_vector(init_cons):
     split = np.array_split(init_cons, network.number_of_neurons+1)
     u = split[0]
     s = split[1:network.number_of_neurons+1]
     return u, s
 
+# split s vector into a matrix
 def refactor_s_vector(s):
     split = np.array_split(s, network.number_of_neurons)
     return split
 
+# create network object
 network = Network()
