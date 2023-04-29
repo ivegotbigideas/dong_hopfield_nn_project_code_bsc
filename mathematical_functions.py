@@ -11,7 +11,6 @@ MODELLING OF THE SYSTEM
 def sigmoid(x):
     return 2/pi*np.arctan(1.4*pi*x/2)
 
-# u, s, neuron_id
 def dudt(conditions, t, neuron_id):
     u, s = refactor_state_vector(conditions)
 
@@ -29,7 +28,6 @@ def dudt(conditions, t, neuron_id):
     derivative = 1/network.a[neuron_id] * (term_1 + term_2 + term_3)
     return derivative
 
-# s, u, neuron_id_1, neuron_id_2
 def dsdt(conditions, neuron_id_1, neuron_id_2):
     u, s = refactor_state_vector(conditions)
     term_1 = -s[neuron_id_1][neuron_id_2]
