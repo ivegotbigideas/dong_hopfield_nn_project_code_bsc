@@ -5,12 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 network.s = np.loadtxt("default_s_values.txt")
-if False: # set to false to just load default s values
+if False: # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
     network.s = np.array(refactor_s_vector(final_s_values))
 fixed_points = find_fixed_points()
 
+# plot customisation
 plt.rcParams['text.usetex'] = True
 fig = plt.figure(figsize=(7, 7), dpi=200)
 ax = fig.add_subplot(1,1,1)
@@ -41,9 +42,9 @@ init_cons = [network.get_I(0),
             ]
 
 # for recognisation
-recognisation = True # set to false to not plot recognisation
+recognisation = True # set to True to plot trajectories from initial conditions close to an input vector
 if recognisation: 
-    init_cons = [init_cons[5]]
+    init_cons = [init_cons[5]] # specify the input vector that you want to demonstrate with
     for _ in range(1,4):
         disp = np.random.uniform(low=-1, high=1, size=10)
         init_cons.append(list(init_cons[0] + disp))
@@ -67,6 +68,7 @@ for init_con in init_cons:
     else:
         plt.plot(x,y, zorder=10)
 
+# display plot and perform further customisation
 ax.set_aspect('equal', adjustable='box')
 plt.gca().set_aspect('equal')
 plt.axis('scaled')
