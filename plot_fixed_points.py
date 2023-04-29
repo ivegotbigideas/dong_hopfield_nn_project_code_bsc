@@ -57,6 +57,7 @@ if validate_stability:
     disp = np.random.uniform(low=-1, high=1, size=10)
     init_cons = [list(fp_to_test + disp)]
 
+# find and plot trajectories
 for init_con in init_cons:
     init_con.extend(network.s.flatten())
     t = np.linspace(0, 8*300, 500)
