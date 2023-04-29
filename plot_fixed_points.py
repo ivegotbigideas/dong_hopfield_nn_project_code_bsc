@@ -4,12 +4,15 @@ from network_state import network, refactor_s_vector
 import numpy as np
 import matplotlib.pyplot as plt
 
+# get weights
 network.s = np.loadtxt("default_s_values.txt")
 generate_new_s_values = False # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
 if generate_new_s_values: 
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
     network.s = np.array(refactor_s_vector(final_s_values))
+
+# find fixed points
 fixed_points = find_fixed_points()
 
 # plot customisation
