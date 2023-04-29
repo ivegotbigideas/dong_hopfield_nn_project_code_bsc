@@ -54,7 +54,7 @@ if recognisation:
 validate_stability = False
 if validate_stability:
     fp_to_test = [0,0,0,0,0,0,0,0,0,0] # specify the fixed point that you want to demonstrate with
-    disp = np.random.uniform(low=-0.5, high=0.5, size=10)
+    disp = np.random.uniform(low=-1, high=1, size=10)
     init_cons = [list(fp_to_test + disp)]
 
 for init_con in init_cons:
