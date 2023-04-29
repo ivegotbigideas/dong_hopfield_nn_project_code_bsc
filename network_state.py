@@ -55,7 +55,7 @@ class Network:
         return s
 
     # external stimulus
-    def get_I(self, t, use_random=False):
+    def get_I(self, t, use_random=True):
         if t != None:
             if t<0:
                 print("t<0!")
