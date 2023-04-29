@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # get weights
 network.s = np.loadtxt("default_s_values.txt")
-generate_new_s_values = False # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
+generate_new_s_values = True # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
 if generate_new_s_values: 
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
