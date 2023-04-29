@@ -33,7 +33,7 @@ for fixed_point in fixed_points:
     else:
         fp_plot = plt.scatter(fixed_point[0], fixed_point[1], marker="^")
     
-# plot trajectories
+# put initial conditions in list
 init_cons = [network.get_I(0),
              network.get_I(12),
              network.get_I(24),
