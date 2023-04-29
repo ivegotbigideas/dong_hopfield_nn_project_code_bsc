@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 network.s = np.loadtxt("default_s_values.txt")
-if False: # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
+if True: # Set to False to load s values from file and skip simulation of learning. Set to True otherwise.
     from simulate_network import sol
     final_s_values = np.ndarray.tolist(sol[len(sol)-1, network.number_of_neurons:len(sol[0])])
     network.s = np.array(refactor_s_vector(final_s_values))
@@ -42,7 +42,7 @@ init_cons = [network.get_I(0),
             ]
 
 # for recognisation
-recognisation = True # set to True to plot trajectories from initial conditions close to an input vector
+recognisation = False # set to True to plot trajectories from initial conditions close to an input vector
 if recognisation: 
     init_cons = [init_cons[5]] # specify the input vector that you want to demonstrate with
     for _ in range(1,4):
@@ -73,7 +73,7 @@ ax.set_aspect('equal', adjustable='box')
 plt.gca().set_aspect('equal')
 plt.axis('scaled')
 plt.grid()
-plt.xlim(-11,11)
-plt.ylim(-11,11)
+plt.xlim(-18,18)
+plt.ylim(-18,18)
 plt.savefig('plot.png')
 plt.show()
