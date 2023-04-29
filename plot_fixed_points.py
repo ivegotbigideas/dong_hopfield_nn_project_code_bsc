@@ -50,6 +50,13 @@ if recognisation:
         disp = np.random.uniform(low=-1, high=1, size=10)
         init_cons.append(list(init_cons[0] + disp))
 
+# for validating stability of fixed point
+validate_stability = False
+if validate_stability:
+    fp_to_test = [0,0,0,0,0,0,0,0,0,0] # specify the fixed point that you want to demonstrate with
+    disp = np.random.uniform(low=-0.5, high=0.5, size=10)
+    init_cons = [list(fp_to_test + disp)]
+
 for init_con in init_cons:
     init_con.extend(network.s.flatten())
     t = np.linspace(0, 8*300, 500)
@@ -74,7 +81,7 @@ ax.set_aspect('equal', adjustable='box')
 plt.gca().set_aspect('equal')
 plt.axis('scaled')
 plt.grid()
-plt.xlim(-18,18)
-plt.ylim(-18,18)
+plt.xlim(-20,20)
+plt.ylim(-20,20)
 plt.savefig('plot.png')
 plt.show()
