@@ -53,7 +53,7 @@ class Network:
         s = np.array(s, dtype=np.float64)
         return s
 
-    def get_I(self, t, use_random=True):
+    def get_I(self, t, use_random=False):
         if t != None:
             if t<0:
                 print("t<0!")
