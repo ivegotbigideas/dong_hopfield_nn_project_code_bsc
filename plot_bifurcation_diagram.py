@@ -37,6 +37,10 @@ for point in fp:
 # plot data
 ax.plot(unstable_fp_s_values, [0]*len(unstable_fp_s_values), '--')
 ax.plot(s_values, u0_fixed_points, color="r")
+plt.axvline(x=0.421, color="black", linestyle="--")
+plt.annotate("$s_{01}=0.421$", (0.47, 1))
+plt.axvline(x=-0.421, color="black", linestyle="--")
+plt.annotate("$s_{01}=-0.421$", (-0.38, 1))
 
 # display
 plt.show()
